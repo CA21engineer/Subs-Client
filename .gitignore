@@ -81,6 +81,7 @@ iOSInjectionProject/
 
 ## XcodeGen
 *.xcodeproj
+*.xcworkspace
 
 ## Generated sources
 **/Generated
