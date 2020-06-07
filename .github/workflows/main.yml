@@ -39,3 +39,5 @@ jobs:
     - run: xcodebuild
         -sdk iphonesimulator
         -configuration Debug build
+        -scheme SubsClient 
+        -workspace SubsClient.xcworkspace
