@@ -100,3 +100,6 @@ Brewfile.lock.json
 
 ## GoogleService-Info
 GoogleService-Info.plist
+
+## .DS_Store
+.DS_Store

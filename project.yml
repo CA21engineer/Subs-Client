@@ -1,6 +1,39 @@
 name: SubsClient
 
+targetTemplates:
+    Framework:
+      platform: iOS
+      type: framework
+      sources:
+        - path: ${target_name}
+      settings:
+        PRODUCT_BUNDLE_IDENTIFIER: "jp.ca21engineer.SubsClient.${target_name}"
+    UnitTest:
+      type: bundle.unit-test
+      platform: iOS
+      sources:
+        - path: ${target_name}
+      dependencies:
+        - target: ${target_name}
+        - target: SubsClient
+
 targets:
+    Common:
+      templates:
+        - Framework
+      sources:
+        - path: ${target_name}
+    CommonTests:
+      templates:
+        - UnitTest
+    Components:
+      templates:
+        - Framework
+      sources:
+        - path: ${target_name}
+    ComponentsTests:
+      templates:
+        - UnitTest
     SubsClient:
         type: application
         platform: iOS
