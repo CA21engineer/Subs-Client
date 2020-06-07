@@ -1,6 +1,6 @@
 require 'dotenv'
 
-app_identifier('{BUNDLE_IDENTIFIER}') # The bundle identifier of your app
+app_identifier('jp.ca21engineer.SubsClient') # The bundle identifier of your app
 apple_id(ENV['APPLE_ID']) # Your Apple email address
 
 itc_team_id(ENV['ITC_TEAM_ID']) # App Store Connect Team ID

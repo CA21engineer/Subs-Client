@@ -1,5 +1,5 @@
-BUNDLE_IDENTIFIER:=com.example.template.Template
-PROJECT_NAME:=Test
+BUNDLE_IDENTIFIER:=jp.ca21engineer.SubsClient
+PROJECT_NAME:=SubsClient
 
 .PHONY: init
 init:

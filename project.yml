@@ -1,11 +1,11 @@
-name: {Template}
+name: SubsClient
 
 targets:
-    {Template}:
+    SubsClient:
         type: application
         platform: iOS
         deploymentTarget: "13.0"
-        sources: [{Template}]
+        sources: [SubsClient]
         preBuildScripts:
             - path: scripts/lint.sh
               name: "Run Lint"
@@ -13,4 +13,4 @@ targets:
             - path: scripts/format.sh
               name: "Run Format"
         settings:
-            PRODUCT_BUNDLE_IDENTIFIER: {BUNDLE_IDENTIFIER}
+            PRODUCT_BUNDLE_IDENTIFIER: jp.ca21engineer.SubsClient
