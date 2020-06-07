@@ -18,6 +18,6 @@ jobs:
       run: make init
     - name: make xcodegen
       run: make xcodegen
-    - name: xcodebuild \
+    - run: xcodebuild \
         -sdk iphonesimulator \
         -configuration Debug build
