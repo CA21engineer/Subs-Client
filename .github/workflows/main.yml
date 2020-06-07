@@ -14,10 +14,10 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.1
-    - name: Install rbenv
-      run: brew install rbenv
     - name: make init
       run: make init
+      env:
+          IS_CI: true
     - name: Cache CocoaPods files
       uses: actions/cache@preview
       with:
