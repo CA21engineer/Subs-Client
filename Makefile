@@ -8,3 +8,14 @@ init:
 .PHONY: xcodegen
 xcodegen:
 	./scripts/xcodegen.sh
+
+export PATH += :$(PWD)/bin
+GRPC_OUT:=./SubsClient/Sources/Generated
+.PHONY: proto
+proto:
+	mkdir -p $(GRPC_OUT)
+	protoc ./Subs-server/protobuf/subscription.proto \
+	    --proto_path ./Subs-server/protobuf \
+	    --grpc-swift_out $(GRPC_OUT) \
+	    --swift_out $(GRPC_OUT) 
+	./scripts/xcodegen.sh
