@@ -14,8 +14,17 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.1
+    - name: Install rbenv
+      run: brew install rbenv
     - name: make init
       run: make init
+    - name: Cache CocoaPods files
+      uses: actions/cache@preview
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
     - name: make xcodegen
       run: make xcodegen
     - run: xcodebuild \
