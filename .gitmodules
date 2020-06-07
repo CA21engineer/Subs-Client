@@ -1,0 +1,3 @@
+[submodule "Sub-server"]
+	path = Sub-server
+	url = https://github.com/CA21engineer/Sub-server.git
