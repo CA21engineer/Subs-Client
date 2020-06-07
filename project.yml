@@ -34,6 +34,11 @@ targets:
     ComponentsTests:
       templates:
         - UnitTest
+    Repository:
+      templates:
+        - Framework
+      sources:
+        - path: ${target_name}
     SubsClient:
         type: application
         platform: iOS
