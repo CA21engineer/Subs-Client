@@ -27,6 +27,9 @@ dependencies() {
 
     # Install Mint dependencies
     bundle install
+
+    # submodule
+    git submodule update --init
 }
 
 replace_project_name() {
