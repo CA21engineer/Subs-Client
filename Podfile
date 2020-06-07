@@ -12,4 +12,8 @@ target 'SubsClient' do
   pod 'Firebase/Messaging'
   pod 'Nuke'
 
+    target 'Repository' do
+      pod 'gRPC-Swift', '1.0.0-alpha.12'
+    end
 end
+
