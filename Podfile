@@ -6,5 +6,10 @@ target 'SubsClient' do
   use_frameworks!
 
   # Pods for SubsClient
+  pod 'Swift_PageMenu'
+  pod 'gRPC-Swift', '1.0.0-alpha.12'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'Nuke'
 
 end
