@@ -6,7 +6,11 @@ check_depends() {
         exit 1
     fi
 
-    if ! type "rbenv" > /dev/null; then
+    if [ $IS_CI = 'true' ]; then
+        echo 'CI'
+        return
+    fi
+    if ! type "rbenv" > /dev/null ; then
         echo '`rbenv` not found. Please install rbenv'
         exit 1
     fi
