@@ -14,10 +14,19 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.1
+    - name: Cache Mint
+      uses: actions/cache@preview
+      with: 
+        path: mint
+        key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
+        restore-keys: |
+            ${{ runner.os }}-mint-
     - name: make init
       run: make init
       env:
           IS_CI: true
+          MINT_PATH: mint/lib
+          MINT_LINK_PATH: mint/bin
     - name: Cache CocoaPods files
       uses: actions/cache@preview
       with:
