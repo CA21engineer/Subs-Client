@@ -93,3 +93,6 @@ vendor/
 
 ## npm
 node_modules/
+
+## Brewfile
+Brewfile.lock.json
