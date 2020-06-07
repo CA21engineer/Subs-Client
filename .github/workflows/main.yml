@@ -36,6 +36,6 @@ jobs:
           ${{ runner.os }}-pods-
     - name: make xcodegen
       run: make xcodegen
-    - run: xcodebuild \
-        -sdk iphonesimulator \
+    - run: xcodebuild
+        -sdk iphonesimulator
         -configuration Debug build
