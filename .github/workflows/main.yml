@@ -34,6 +34,10 @@ jobs:
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
+    - name: make proto
+      run: make proto
+    - name: run swiftgen
+      run: mint run swiftgen swiftgen
     - name: make xcodegen
       run: make xcodegen
     - run: xcodebuild
