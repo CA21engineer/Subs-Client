@@ -37,7 +37,7 @@ targets:
     SubsClient:
         type: application
         platform: iOS
-        deploymentTarget: "13.0"
+        deploymentTarget: "13.4"
         sources: [SubsClient]
         preBuildScripts:
             - path: scripts/lint.sh
@@ -47,3 +47,6 @@ targets:
               name: "Run Format"
         settings:
             PRODUCT_BUNDLE_IDENTIFIER: jp.ca21engineer.SubsClient
+        dependencies:
+            - target: Common
+            - target: Components

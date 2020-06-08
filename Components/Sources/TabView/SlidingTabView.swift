@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SlidingTabView : View {
+public struct SlidingTabView : View {
 
     @State private var selectionState: Int = 0 {
         didSet {
@@ -125,7 +125,7 @@ struct SlidingTabConsumerView : View {
             Spacer()
         }
         .padding(.top, 50)
-            .animation(.none)
+        .animation(.none)
     }
 }
 
