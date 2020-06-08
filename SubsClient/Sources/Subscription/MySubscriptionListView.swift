@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Components
 
 struct MySubscriptionListView: View {
     private let subscriptions: [Subscription_Subscription]
