@@ -10,12 +10,15 @@ xcodegen:
 	./scripts/xcodegen.sh
 
 export PATH += :$(PWD)/bin
-GRPC_OUT:=./SubsClient/Sources/Generated
+GRPC_OUT:=./Repository/Sources/Generated
 .PHONY: proto
-proto:
+proto: proto_clean
 	mkdir -p $(GRPC_OUT)
 	protoc ./Subs-server/protobuf/subscription.proto \
 	    --proto_path ./Subs-server/protobuf \
-	    --grpc-swift_out $(GRPC_OUT) \
-	    --swift_out $(GRPC_OUT) 
+	    --grpc-swift_out Client=true,Server=false,Visibility=Public:$(GRPC_OUT) \
+	    --swift_out Visibility=Public:$(GRPC_OUT) 
 	./scripts/xcodegen.sh
+
+proto_clean:
+	find . -type d | grep Generated | xargs rm -r
