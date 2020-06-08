@@ -15,12 +15,12 @@ struct HomeView: View {
     }
 
     private var subscriptions = [
-        UserSubscription(id: "1", name: "hoge1", serviceType: "1", price: 1, cycle: 1, isOriginal: false),
-        UserSubscription(id: "2", name: "hoge2", serviceType: "2", price: 1, cycle: 1, isOriginal: false),
-        UserSubscription(id: "3", name: "hoge3", serviceType: "3", price: 1, cycle: 1, isOriginal: false),
-        UserSubscription(id: "4", name: "hoge4", serviceType: "4", price: 1, cycle: 1, isOriginal: false),
-        UserSubscription(id: "5", name: "hoge5", serviceType: "5", price: 1, cycle: 1, isOriginal: false),
-        UserSubscription(id: "6", name: "hoge6", serviceType: "6", price: 1, cycle: 1, isOriginal: false)
+        UserSubscription(id: "1", name: "Netflix", serviceType: "1", price: 800, cycle: 1, isOriginal: false),
+        UserSubscription(id: "2", name: "Netflix", serviceType: "2", price: 800, cycle: 1, isOriginal: false),
+        UserSubscription(id: "3", name: "Netflix", serviceType: "3", price: 800, cycle: 1, isOriginal: false),
+        UserSubscription(id: "4", name: "Netflix", serviceType: "4", price: 800, cycle: 1, isOriginal: false),
+        UserSubscription(id: "5", name: "Netflix", serviceType: "5", price: 800, cycle: 1, isOriginal: false),
+        UserSubscription(id: "6", name: "Netflix", serviceType: "6", price: 800, cycle: 1, isOriginal: false)
     ]
 
     var body: some View {
@@ -29,7 +29,6 @@ struct HomeView: View {
                 SlidingTabView(selection: $selectedTabIndex, tabs: tabs.map { $0.title })
                 MySubscriptionListView(subscriptions: subscriptions, tab: HomeTab(rawValue: selectedTabIndex)!)
             }
-            .background(Color("background0"))
             .navigationBarTitle("Subs", displayMode: .inline)
             .navigationBarItems(
                 trailing: Button(action: {

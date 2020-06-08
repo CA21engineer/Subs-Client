@@ -18,21 +18,36 @@ public struct MySubscriptionCardView: View {
     public var body: some View {
         VStack {
             HStack(spacing: 16) {
-                Text(subscription.name)
-                    .fontWeight(.semibold)
-                    .lineLimit(0)
+                Image("Netflix_icon")
+                    .resizable()
+                    .frame(width: 48, height: 48)
+                VStack(spacing: 4) {
+                    HStack {
+                        Text(subscription.name)
+                            .fontWeight(.semibold)
+                            .font(.system(size: 18))
+                            .lineLimit(0)
+                        Spacer()
+                    }
+                    HStack {
+                        Text("カテゴリー名")
+                            .foregroundColor(.gray)
+                            .fontWeight(.regular)
+                            .font(.system(size: 14))
+                            .lineLimit(0)
+                        Spacer()
+                    }
+
+                }
                 Spacer()
-                Text(String(subscription.price))
+                Text("¥\(subscription.price)")
                     .fontWeight(.semibold)
                     .lineLimit(0)
             }
             .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
             .background(Color("background1"))
-            .cornerRadius(8)
             
         }
-        .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
-        .background(Color("background0"))
     }
 }
 
