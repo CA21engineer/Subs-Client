@@ -24,22 +24,6 @@ targetTemplates:
         - target: SubsClient
 
 targets:
-    Common:
-      templates:
-        - Framework
-      sources:
-        - path: ${target_name}
-    CommonTests:
-      templates:
-        - UnitTest
-    Components:
-      templates:
-        - Framework
-      sources:
-        - path: ${target_name}
-    ComponentsTests:
-      templates:
-        - UnitTest
     SubsClient:
         type: application
         platform: iOS
@@ -54,6 +38,4 @@ targets:
         settings:
             PRODUCT_BUNDLE_IDENTIFIER: jp.ca21engineer.SubsClient
         dependencies:
-            - target: Common
-            - target: Components
             - package: ComposableArchitecture

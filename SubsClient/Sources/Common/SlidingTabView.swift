@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SlidingTabView : View {
+struct SlidingTabView : View {
 
     @State private var selectionState: Int = 0 {
         didSet {
@@ -28,7 +28,7 @@ public struct SlidingTabView : View {
     let selectionBarBackgroundColor: Color
     let selectionBarBackgroundHeight: CGFloat
 
-    public init(selection: Binding<Int>,
+    init(selection: Binding<Int>,
                 tabs: [String],
                 animation: Animation = .spring(),
                 activeAccentColor: Color = .black,
@@ -52,7 +52,7 @@ public struct SlidingTabView : View {
         self.selectionBarBackgroundHeight = selectionBarBackgroundHeight
     }
 
-    public var body: some View {
+    var body: some View {
         assert(tabs.count > 1, "Must have at least 2 tabs")
 
         return VStack(alignment: .leading, spacing: 0) {

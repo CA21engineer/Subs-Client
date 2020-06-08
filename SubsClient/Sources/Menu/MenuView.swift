@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Components
 import ComposableArchitecture
 
 struct MenuView: View {
