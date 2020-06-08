@@ -38,6 +38,8 @@ public struct Repository: RepositoryProtocol {
         return Subscription_SubscriptionServiceClient(channel: connection)
     }()
 
+    public init() {}
+
     public func fetchIconImages() -> Effect<[Subscription_IconImage], Error> {
         do {
             let response = try client.getIconImageList(.init()).response.wait()
@@ -64,8 +66,8 @@ public struct Repository: RepositoryProtocol {
         do {
             let response = try client.getSubscription(request).response.wait()
             return .init(value: response.subscriptions)
-        } catch let e {
-            return .init(error: e)
+        } catch {
+            return .init(error: error)
         }
     }
 
