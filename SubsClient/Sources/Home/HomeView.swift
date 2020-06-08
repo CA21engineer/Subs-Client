@@ -13,24 +13,28 @@ struct HomeView: View {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 
+    private var subscriptions = [
+        UserSubscription(id: "1", name: "hoge1", serviceType: "1", price: 1, cycle: 1, isOriginal: false),
+        UserSubscription(id: "2", name: "hoge2", serviceType: "2", price: 1, cycle: 1, isOriginal: false),
+        UserSubscription(id: "3", name: "hoge3", serviceType: "3", price: 1, cycle: 1, isOriginal: false),
+        UserSubscription(id: "4", name: "hoge4", serviceType: "4", price: 1, cycle: 1, isOriginal: false),
+        UserSubscription(id: "5", name: "hoge5", serviceType: "5", price: 1, cycle: 1, isOriginal: false),
+        UserSubscription(id: "6", name: "hoge6", serviceType: "6", price: 1, cycle: 1, isOriginal: false)
+    ]
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
                 SlidingTabView(selection: $selectedTabIndex, tabs: ["1ヶ月", "3ヶ月", "半年", "一年"])
                 if selectedTabIndex == 0 {
-                    Text("1ヶ月")
-                        .padding()
+                    MySubscriptionListView(subscriptions: subscriptions, cycle: .oneMonth)
                 } else if selectedTabIndex == 1 {
-                    Text("3ヶ月")
-                        .padding()
+                    MySubscriptionListView(subscriptions: subscriptions, cycle: .threeMonth)
                 } else if selectedTabIndex == 2 {
-                    Text("半年")
-                        .padding()
+                    MySubscriptionListView(subscriptions: subscriptions, cycle: .halfYear)
                 } else if selectedTabIndex == 3 {
-                    Text("一年")
-                    .padding()
+                    MySubscriptionListView(subscriptions: subscriptions, cycle: .oneYear)
                 }
-                Spacer()
             }
             .navigationBarTitle("Subs", displayMode: .inline)
             .navigationBarItems(
