@@ -36,6 +36,7 @@ struct HomeView: View {
                 }, label: {
                     Image(systemName: "plus.circle.fill")
                         .foregroundColor(.black)
+                        .font(.system(size: 25))
                 })
                 .sheet(
                     isPresented: self.$showModal,
