@@ -4,6 +4,7 @@ import Components
 struct HomeView: View {
     @State private var selectedTabIndex = 0
     @State private var showModal: Bool = false
+    private let tabs = HomeTab.allCases
 
     init() {
         let appearance = UINavigationBarAppearance()
@@ -25,16 +26,8 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                SlidingTabView(selection: $selectedTabIndex, tabs: ["1ヶ月", "3ヶ月", "半年", "一年"])
-                if selectedTabIndex == 0 {
-                    MySubscriptionListView(subscriptions: subscriptions, cycle: .oneMonth)
-                } else if selectedTabIndex == 1 {
-                    MySubscriptionListView(subscriptions: subscriptions, cycle: .threeMonth)
-                } else if selectedTabIndex == 2 {
-                    MySubscriptionListView(subscriptions: subscriptions, cycle: .halfYear)
-                } else if selectedTabIndex == 3 {
-                    MySubscriptionListView(subscriptions: subscriptions, cycle: .oneYear)
-                }
+                SlidingTabView(selection: $selectedTabIndex, tabs: tabs.map { $0.title })
+                MySubscriptionListView(subscriptions: subscriptions, tab: HomeTab.convert(index: selectedTabIndex))
             }
             .background(Color("background0"))
             .navigationBarTitle("Subs", displayMode: .inline)
