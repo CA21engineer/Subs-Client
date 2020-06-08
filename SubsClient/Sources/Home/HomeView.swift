@@ -27,7 +27,7 @@ struct HomeView: View {
         NavigationView {
             VStack(alignment: .leading) {
                 SlidingTabView(selection: $selectedTabIndex, tabs: tabs.map { $0.title })
-                MySubscriptionListView(subscriptions: subscriptions, tab: HomeTab.convert(index: selectedTabIndex))
+                MySubscriptionListView(subscriptions: subscriptions, tab: HomeTab(rawValue: selectedTabIndex)!)
             }
             .background(Color("background0"))
             .navigationBarTitle("Subs", displayMode: .inline)

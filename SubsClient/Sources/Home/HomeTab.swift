@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum HomeTab: CaseIterable {
-    case oneMonth
-    case threeMonth
-    case halfYear
-    case oneYear
+enum HomeTab: Int, CaseIterable {
+    case oneMonth = 0
+    case threeMonth = 1
+    case halfYear = 2
+    case oneYear = 3
 
     var title: String {
         switch self {
@@ -36,21 +36,6 @@ enum HomeTab: CaseIterable {
             return 6
         case .oneYear:
             return 12
-        }
-    }
-
-    static func convert(index: Int) -> Self {
-        switch index {
-        case 0:
-            return .oneMonth
-        case 1:
-            return .threeMonth
-        case 2:
-            return .halfYear
-        case 3:
-            return .oneYear
-        default:
-            fatalError("wrong index")
         }
     }
 }

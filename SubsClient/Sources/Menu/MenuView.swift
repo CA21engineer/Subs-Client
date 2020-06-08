@@ -11,6 +11,7 @@ import Components
 struct MenuView: View {
     @State private var selectedTabIndex = 0
     @State private var showModal: Bool = false
+    private let tabs = MenuTab.allCases
 
     init() {
         let appearance = UINavigationBarAppearance()
@@ -23,14 +24,8 @@ struct MenuView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                SlidingTabView(selection: $selectedTabIndex, tabs: ["For You", "Popular"])
-                if selectedTabIndex == 0 {
-                    Text("For You")
-                        .padding()
-                } else if selectedTabIndex == 1 {
-                    Text("Popular")
-                        .padding()
-                }
+                SlidingTabView(selection: $selectedTabIndex, tabs: tabs.map { $0.title })
+                Text(MenuTab(rawValue: selectedTabIndex)!.title)
                 Spacer()
             }
             .navigationBarTitle("選択する", displayMode: .inline)

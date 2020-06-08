@@ -30,7 +30,7 @@ struct MySubscriptionListView: View {
         // TODO: insert header
         List {
             ForEach(self.subscriptions) { subscription in
-                SubscriptionCardView(subscription: subscription)
+                MySubscriptionCardView(subscription: subscription)
                     .padding(.horizontal, -16)
                     .padding(.vertical, -6)
             }
