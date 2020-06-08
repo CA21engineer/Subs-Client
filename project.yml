@@ -60,3 +60,6 @@ targets:
               name: "Run Format"
         settings:
             PRODUCT_BUNDLE_IDENTIFIER: jp.ca21engineer.SubsClient
+        dependencies:
+            - target: Common
+            - target: Components
