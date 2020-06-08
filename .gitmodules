@@ -1,3 +1,4 @@
 [submodule "Subs-server"]
 	path = Subs-server
 	url = https://github.com/CA21engineer/Subs-server.git
+        ignore = dirty
