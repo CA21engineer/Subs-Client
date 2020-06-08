@@ -9,6 +9,7 @@ targetTemplates:
     Framework:
       platform: iOS
       type: framework
+      deploymentTarget: "13.0"
       sources:
         - path: ${target_name}
       settings:
