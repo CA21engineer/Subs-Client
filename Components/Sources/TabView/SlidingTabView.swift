@@ -34,8 +34,8 @@ public struct SlidingTabView : View {
                 activeAccentColor: Color = .black,
                 inactiveAccentColor: Color = Color.black.opacity(0.4),
                 selectionBarColor: Color = .black,
-                inactiveTabColor: Color = .clear,
-                activeTabColor: Color = .clear,
+                inactiveTabColor: Color = Color("background0"),
+                activeTabColor: Color = Color("background0"),
                 selectionBarHeight: CGFloat = 2,
                 selectionBarBackgroundColor: Color = Color.gray.opacity(0.2),
                 selectionBarBackgroundHeight: CGFloat = 2) {
@@ -67,6 +67,7 @@ public struct SlidingTabView : View {
                             Text(tab)
                                 .fontWeight(.bold)
                             Spacer()
+
                         }
                     }
                     .padding(.vertical, 8)
@@ -84,16 +85,27 @@ public struct SlidingTabView : View {
                 ZStack(alignment: .leading) {
                     Rectangle()
                         .fill(self.selectionBarColor)
-                        .frame(width: self.tabWidth(from: geometry.size.width), height: self.selectionBarHeight, alignment: .leading)
-                        .offset(x: self.selectionBarXOffset(from: geometry.size.width), y: 0)
+                        .frame(
+                            width: self.tabWidth(from: geometry.size.width),
+                            height: self.selectionBarHeight,
+                            alignment: .leading)
+                        .offset(
+                            x: self.selectionBarXOffset(from: geometry.size.width),
+                            y: 0)
                         .animation(self.animation)
                     Rectangle()
                         .fill(self.selectionBarBackgroundColor)
-                        .frame(width: geometry.size.width, height: self.selectionBarBackgroundHeight, alignment: .leading)
-                }.fixedSize(horizontal: false, vertical: true)
-            }.fixedSize(horizontal: false, vertical: true)
-
+                        .frame(
+                            width: geometry.size.width,
+                            height: self.selectionBarBackgroundHeight,
+                            alignment: .leading)
+                }
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(height: self.selectionBarHeight)
         }
+
     }
 
     private func isSelected(tabIdentifier: String) -> Bool {

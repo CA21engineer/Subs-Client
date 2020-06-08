@@ -6,10 +6,48 @@
 //
 
 import SwiftUI
+import Components
 
 struct MenuView: View {
+    @State private var selectedTabIndex = 0
+    @State private var showModal: Bool = false
+
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.shadowColor = .clear
+        appearance.backgroundColor = UIColor(named: "background0")
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack(alignment: .leading) {
+                SlidingTabView(selection: $selectedTabIndex, tabs: ["For You", "Popular"])
+                if selectedTabIndex == 0 {
+                    Text("For You")
+                        .padding()
+                } else if selectedTabIndex == 1 {
+                    Text("Popular")
+                        .padding()
+                }
+                Spacer()
+            }
+            .navigationBarTitle("選択する", displayMode: .inline)
+            .navigationBarItems(
+                trailing: Button(action: {
+                    self.showModal = true
+                }, label: {
+                    Image(systemName: "paperplane.fill")
+                        .foregroundColor(.black)
+                })
+                .sheet(
+                    isPresented: self.$showModal,
+                    content: {
+                        SubscriptionFormView()
+                })
+            )
+        }
     }
 }
 

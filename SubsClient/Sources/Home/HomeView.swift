@@ -5,6 +5,14 @@ struct HomeView: View {
     @State private var selectedTabIndex = 0
     @State private var showModal: Bool = false
 
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.shadowColor = .clear
+        appearance.backgroundColor = UIColor(named: "background0")
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -30,7 +38,6 @@ struct HomeView: View {
                     self.showModal = true
                 }, label: {
                     Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 24))
                         .foregroundColor(.black)
                 })
                 .sheet(
