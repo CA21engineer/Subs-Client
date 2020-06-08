@@ -99,7 +99,7 @@ node_modules/
 Brewfile.lock.json
 
 ## GoogleService-Info
-GoogleService-Info.plist
+**/GoogleService-Info.plist
 
 ## .DS_Store
 .DS_Store
