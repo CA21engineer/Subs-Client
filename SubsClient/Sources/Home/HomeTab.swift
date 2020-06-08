@@ -26,6 +26,19 @@ enum HomeTab: CaseIterable {
         }
     }
 
+    var monthCount: Int {
+        switch self {
+        case .oneMonth:
+            return 1
+        case .threeMonth:
+            return 3
+        case .halfYear:
+            return 6
+        case .oneYear:
+            return 12
+        }
+    }
+
     static func convert(index: Int) -> Self {
         switch index {
         case 0:

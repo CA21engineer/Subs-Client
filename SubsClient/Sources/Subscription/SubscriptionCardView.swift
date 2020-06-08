@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct SubscriptionCardView: View {
 
-    let subscription: UserSubscription
+    private let subscription: UserSubscription
 
     init(subscription: UserSubscription) {
         self.subscription = subscription
