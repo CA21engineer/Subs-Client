@@ -8,15 +8,6 @@
 import SwiftUI
 import Components
 
-//struct UserSubscription: Equatable, Identifiable {
-//    let id: String
-//    let name: String
-//    let serviceType: String
-//    let price: Int
-//    let cycle: Int
-//    let isOriginal: Bool
-//}
-
 struct MySubscriptionListView: View {
     private let subscriptions: [Subscription_Subscription]
     private let tab: HomeTab
