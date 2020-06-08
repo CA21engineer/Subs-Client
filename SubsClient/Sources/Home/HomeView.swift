@@ -8,7 +8,7 @@ struct HomeView: View {
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.shadowColor = .clear
-        appearance.backgroundColor = UIColor(named: "background0")
+        appearance.backgroundColor = UIColor(named: "background1")
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
@@ -36,6 +36,7 @@ struct HomeView: View {
                     MySubscriptionListView(subscriptions: subscriptions, cycle: .oneYear)
                 }
             }
+            .background(Color("background0"))
             .navigationBarTitle("Subs", displayMode: .inline)
             .navigationBarItems(
                 trailing: Button(action: {

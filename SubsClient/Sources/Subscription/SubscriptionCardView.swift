@@ -9,12 +9,30 @@ import SwiftUI
 
 public struct SubscriptionCardView: View {
 
-    public init() {
-        
+    let subscription: UserSubscription
+
+    init(subscription: UserSubscription) {
+        self.subscription = subscription
     }
 
     public var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack(spacing: 16) {
+                Text(subscription.name)
+                    .fontWeight(.semibold)
+                    .lineLimit(0)
+                Spacer()
+                Text(String(subscription.price))
+                    .fontWeight(.semibold)
+                    .lineLimit(0)
+            }
+            .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
+            .background(Color("background1"))
+            .cornerRadius(8)
+            
+        }
+        .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
+        .background(Color("background0"))
     }
 }
 
@@ -22,7 +40,15 @@ public struct SubscriptionCardView: View {
 
 struct SubscriptionCardView_Previews: PreviewProvider {
     static var previews: some View {
-        SubscriptionCardView()
+        SubscriptionCardView(
+            subscription: UserSubscription(
+                id: "1",
+                name: "hoge",
+                serviceType: "1",
+                price: 1,
+                cycle: 1,
+                isOriginal: false)
+        )
     }
 }
 

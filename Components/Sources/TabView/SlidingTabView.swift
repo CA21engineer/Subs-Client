@@ -34,8 +34,8 @@ public struct SlidingTabView : View {
                 activeAccentColor: Color = .black,
                 inactiveAccentColor: Color = Color.black.opacity(0.4),
                 selectionBarColor: Color = .black,
-                inactiveTabColor: Color = Color("background0"),
-                activeTabColor: Color = Color("background0"),
+                inactiveTabColor: Color = Color("background1"),
+                activeTabColor: Color = Color("background1"),
                 selectionBarHeight: CGFloat = 2,
                 selectionBarBackgroundColor: Color = Color.gray.opacity(0.2),
                 selectionBarBackgroundHeight: CGFloat = 2) {
