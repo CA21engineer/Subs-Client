@@ -9,6 +9,12 @@ import ComposableArchitecture
 import GRPC
 import NIO
 
+extension Subscription_Subscription: Identifiable {
+    public var id: String {
+        return self.subscriptionID
+    }
+}
+
 public protocol RepositoryProtocol {
     func fetchIconImages() -> Effect<[Subscription_IconImage], Error>
     func fetchMySubscriptions(accountID: String) -> Effect<[Subscription_Subscription], Error>
