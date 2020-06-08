@@ -40,13 +40,6 @@ targets:
     ComponentsTests:
       templates:
         - UnitTest
-    Repository:
-      templates:
-        - Framework
-      sources:
-        - path: ${target_name}
-      dependencies:
-        - package: ComposableArchitecture
     SubsClient:
         type: application
         platform: iOS
@@ -63,3 +56,4 @@ targets:
         dependencies:
             - target: Common
             - target: Components
+            - package: ComposableArchitecture

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SubscriptionCardView: View {
-    private let subscription: UserSubscription
+    private let subscription: Subscription_Subscription
 
-    init(subscription: UserSubscription) {
+    init(subscription: Subscription_Subscription) {
         self.subscription = subscription
     }
 
@@ -22,7 +22,7 @@ struct SubscriptionCardView: View {
                     .frame(width: 48, height: 48)
                 VStack(spacing: 4) {
                     HStack {
-                        Text(subscription.name)
+                        Text(subscription.serviceName)
                             .fontWeight(.semibold)
                             .font(.system(size: 18))
                             .lineLimit(0)
@@ -55,14 +55,6 @@ struct SubscriptionCardView: View {
 
 struct SubscriptionCardView_Previews: PreviewProvider {
     static var previews: some View {
-        SubscriptionCardView(
-            subscription: UserSubscription(
-                id: "1",
-                name: "hoge",
-                serviceType: "1",
-                price: 1,
-                cycle: 1,
-                isOriginal: false)
-        )
+        SubscriptionCardView(subscription: Subscription_Subscription())
     }
 }

@@ -9,21 +9,21 @@ import SwiftUI
 
 public struct MySubscriptionCardView: View {
 
-    private let subscription: UserSubscription
+    private let subscription: Subscription_Subscription
 
-    init(subscription: UserSubscription) {
+    init(subscription: Subscription_Subscription) {
         self.subscription = subscription
     }
 
     public var body: some View {
         VStack {
             HStack(spacing: 16) {
-                Image("Netflix_icon")
+                Image(uiImage: Asset.Assets.netflixIcon.image)
                     .resizable()
                     .frame(width: 48, height: 48)
                 VStack(spacing: 4) {
                     HStack {
-                        Text(subscription.name)
+                        Text(subscription.serviceName)
                             .fontWeight(.semibold)
                             .font(.system(size: 18))
                             .lineLimit(0)
@@ -45,8 +45,6 @@ public struct MySubscriptionCardView: View {
                     .lineLimit(0)
             }
             .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
-            .background(Color("background1"))
-            
         }
     }
 }
@@ -55,15 +53,7 @@ public struct MySubscriptionCardView: View {
 
 struct MySubscriptionCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MySubscriptionCardView(
-            subscription: UserSubscription(
-                id: "1",
-                name: "hoge",
-                serviceType: "1",
-                price: 1,
-                cycle: 1,
-                isOriginal: false)
-        )
+        MySubscriptionCardView(subscription: Subscription_Subscription())
     }
 }
 

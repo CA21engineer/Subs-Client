@@ -10,7 +10,7 @@ xcodegen:
 	./scripts/xcodegen.sh
 
 export PATH += :$(PWD)/bin
-GRPC_OUT:=./Repository/Sources/Generated
+GRPC_OUT:=./SubsClient/Sources/Generated
 .PHONY: proto
 proto: proto_clean
 	mkdir -p $(GRPC_OUT)

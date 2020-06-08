@@ -1,5 +1,6 @@
 import UIKit
 import SwiftUI
+import ComposableArchitecture
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -14,7 +15,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             // Create the SwiftUI view that provides the window contents.
-            let contentView = HomeView()
+            let store = Store(
+                initialState: Home.State(),
+                reducer: Home.reducer,
+                environment: AppEnvironment(
+                    repository: Repository(),
+                    mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+                )
+            )
+            let contentView = HomeView(store: store)
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
