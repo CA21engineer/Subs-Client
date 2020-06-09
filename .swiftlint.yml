@@ -3,6 +3,7 @@ disabled_rules:
   - identifier_name
   - todo
   - trailing_comma
+  - function_parameter_count
 opt_in_rules:
   - closure_end_indentation
 excluded:

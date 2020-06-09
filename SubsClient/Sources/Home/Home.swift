@@ -13,7 +13,7 @@ struct Home {
         switch action {
         case .fetchSubscriptions:
             return environment.repository
-                .fetchMySubscriptions(accountID: "")
+                .fetchMySubscriptions(userID: "")
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
                 .map(Action.subscriptionResponse)
