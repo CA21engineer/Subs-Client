@@ -8,7 +8,6 @@
 import SwiftUI
 
 public struct MySubscriptionCardView: View {
-
     private let subscription: Subscription_Subscription
 
     init(subscription: Subscription_Subscription) {
@@ -37,7 +36,6 @@ public struct MySubscriptionCardView: View {
                             .lineLimit(0)
                         Spacer()
                     }
-
                 }
                 Spacer()
                 Text("¥\(subscription.price)")
@@ -51,10 +49,10 @@ public struct MySubscriptionCardView: View {
 
 #if DEBUG
 
-struct MySubscriptionCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        MySubscriptionCardView(subscription: Subscription_Subscription())
+    struct MySubscriptionCardView_Previews: PreviewProvider {
+        static var previews: some View {
+            MySubscriptionCardView(subscription: Subscription_Subscription())
+        }
     }
-}
 
 #endif

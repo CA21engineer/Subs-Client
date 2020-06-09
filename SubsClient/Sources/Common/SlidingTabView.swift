@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct SlidingTabView : View {
-
+struct SlidingTabView: View {
     @State private var selectionState: Int = 0 {
         didSet {
             selection = selectionState
@@ -29,17 +28,17 @@ struct SlidingTabView : View {
     let selectionBarBackgroundHeight: CGFloat
 
     init(selection: Binding<Int>,
-                tabs: [String],
-                animation: Animation = .spring(),
-                activeAccentColor: Color = .black,
-                inactiveAccentColor: Color = Color.black.opacity(0.4),
-                selectionBarColor: Color = .black,
-                inactiveTabColor: Color = Color("background1"),
-                activeTabColor: Color = Color("background1"),
-                selectionBarHeight: CGFloat = 2,
-                selectionBarBackgroundColor: Color = Color.gray.opacity(0.2),
-                selectionBarBackgroundHeight: CGFloat = 2) {
-        self._selection = selection
+         tabs: [String],
+         animation: Animation = .spring(),
+         activeAccentColor: Color = .black,
+         inactiveAccentColor: Color = Color.black.opacity(0.4),
+         selectionBarColor: Color = .black,
+         inactiveTabColor: Color = Color("background1"),
+         activeTabColor: Color = Color("background1"),
+         selectionBarHeight: CGFloat = 2,
+         selectionBarBackgroundColor: Color = Color.gray.opacity(0.2),
+         selectionBarBackgroundHeight: CGFloat = 2) {
+        _selection = selection
         self.tabs = tabs
         self.animation = animation
         self.activeAccentColor = activeAccentColor
@@ -57,7 +56,7 @@ struct SlidingTabView : View {
 
         return VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
-                ForEach(self.tabs, id:\.self) { tab in
+                ForEach(self.tabs, id: \.self) { tab in
                     Button(action: {
                         let selection = self.tabs.firstIndex(of: tab) ?? 0
                         self.selectionState = selection
@@ -67,18 +66,17 @@ struct SlidingTabView : View {
                             Text(tab)
                                 .fontWeight(.bold)
                             Spacer()
-
                         }
                     }
                     .padding(.vertical, 8)
-                        .accentColor(
-                            self.isSelected(tabIdentifier: tab)
-                                ? self.activeAccentColor
-                                : self.inactiveAccentColor)
-                        .background(
-                            self.isSelected(tabIdentifier: tab)
-                                ? self.activeTabColor
-                                : self.inactiveTabColor)
+                    .accentColor(
+                        self.isSelected(tabIdentifier: tab)
+                            ? self.activeAccentColor
+                            : self.inactiveAccentColor)
+                    .background(
+                        self.isSelected(tabIdentifier: tab)
+                            ? self.activeTabColor
+                            : self.inactiveTabColor)
                 }
             }
             GeometryReader { geometry in
@@ -88,62 +86,65 @@ struct SlidingTabView : View {
                         .frame(
                             width: self.tabWidth(from: geometry.size.width),
                             height: self.selectionBarHeight,
-                            alignment: .leading)
+                            alignment: .leading
+                        )
                         .offset(
                             x: self.selectionBarXOffset(from: geometry.size.width),
-                            y: 0)
+                            y: 0
+                        )
                         .animation(self.animation)
                     Rectangle()
                         .fill(self.selectionBarBackgroundColor)
                         .frame(
                             width: geometry.size.width,
                             height: self.selectionBarBackgroundHeight,
-                            alignment: .leading)
+                            alignment: .leading
+                        )
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fixedSize(horizontal: false, vertical: true)
             .frame(height: self.selectionBarHeight)
         }
-
     }
 
     private func isSelected(tabIdentifier: String) -> Bool {
-        return tabs[selectionState] == tabIdentifier
+        tabs[selectionState] == tabIdentifier
     }
 
     private func selectionBarXOffset(from totalWidth: CGFloat) -> CGFloat {
-        return self.tabWidth(from: totalWidth) * CGFloat(selectionState)
+        tabWidth(from: totalWidth) * CGFloat(selectionState)
     }
 
     private func tabWidth(from totalWidth: CGFloat) -> CGFloat {
-        return totalWidth / CGFloat(tabs.count)
+        totalWidth / CGFloat(tabs.count)
     }
 }
 
 #if DEBUG
 
-struct SlidingTabConsumerView : View {
-    @State private var selectedTabIndex = 0
+    struct SlidingTabConsumerView: View {
+        @State private var selectedTabIndex = 0
 
-    var body: some View {
-        VStack(alignment: .leading) {
-            SlidingTabView(
-                selection: self.$selectedTabIndex,
-                tabs: ["First", "Second"],
-                activeAccentColor: Color.blue,
-                selectionBarColor: Color.blue)
-            (selectedTabIndex == 0 ? Text("First View") : Text("Second View")).padding()
-            Spacer()
+        var body: some View {
+            VStack(alignment: .leading) {
+                SlidingTabView(
+                    selection: self.$selectedTabIndex,
+                    tabs: ["First", "Second"],
+                    activeAccentColor: Color.blue,
+                    selectionBarColor: Color.blue
+                )
+                (selectedTabIndex == 0 ? Text("First View") : Text("Second View")).padding()
+                Spacer()
+            }
+            .padding(.top, 50)
+            .animation(.none)
         }
-        .padding(.top, 50)
-        .animation(.none)
     }
-}
 
-struct SlidingTabView_Previews : PreviewProvider {
-    static var previews: some View {
-        SlidingTabConsumerView()
+    struct SlidingTabView_Previews: PreviewProvider {
+        static var previews: some View {
+            SlidingTabConsumerView()
+        }
     }
-}
 #endif
