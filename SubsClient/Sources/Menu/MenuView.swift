@@ -5,8 +5,8 @@
 //  Created by 長田卓馬 on 2020/06/08.
 //
 
-import SwiftUI
 import ComposableArchitecture
+import SwiftUI
 
 struct MenuView: View {
     @State private var selectedTabIndex = 0
@@ -62,7 +62,8 @@ struct MenuView: View {
                     isPresented: self.$showModal,
                     content: {
                         SubscriptionFormView()
-                })
+                    }
+                )
             )
         }
     }
