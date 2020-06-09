@@ -1,5 +1,5 @@
 //
-//  Home.swift
+//  RecommendSubscriptionList.swift
 //  SubsClient
 //
 //  Created by 長田卓馬 on 2020/06/09.
@@ -8,20 +8,20 @@
 import Foundation
 import ComposableArchitecture
 
-struct Home {
+struct RecommendSubscriptionList {
     static let reducer = Reducer<State, Action, AppEnvironment> { state, action, environment in
         switch action {
-        case .fetchMySubscriptions:
+        case .fetchRecommendSubscriptions:
             return environment.repository
-                .fetchMySubscriptions(accountID: "")
+                .fetchSubscriptions() // TODO: fix as recommend
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
-                .map(Action.subscriptionResponse)
+                .map(Action.recommendSubscriptionsResponse)
                 .cancellable(id: ID(), cancelInFlight: true)
-        case .subscriptionResponse(.success(let subscriptions)):
+        case .recommendSubscriptionsResponse(.success(let subscriptions)):
             state.subscriptions = subscriptions
             return .none
-        case .subscriptionResponse(.failure(let error)):
+        case .recommendSubscriptionsResponse(.failure(let error)):
             state.subscriptions = []
             return .none
         }
@@ -38,7 +38,7 @@ struct Home {
     }
 
     enum Action {
-        case fetchMySubscriptions
-        case subscriptionResponse(Result<[Subscription_Subscription], Error>)
+        case fetchRecommendSubscriptions
+        case recommendSubscriptionsResponse(Result<[Subscription_Subscription], Error>)
     }
 }

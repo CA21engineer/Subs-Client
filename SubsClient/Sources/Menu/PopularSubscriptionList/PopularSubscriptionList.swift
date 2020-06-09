@@ -1,5 +1,5 @@
 //
-//  Home.swift
+//  PopularSubscriptionList.swift
 //  SubsClient
 //
 //  Created by 長田卓馬 on 2020/06/09.
@@ -8,20 +8,20 @@
 import Foundation
 import ComposableArchitecture
 
-struct Home {
+struct PopularSubscriptionList {
     static let reducer = Reducer<State, Action, AppEnvironment> { state, action, environment in
         switch action {
-        case .fetchMySubscriptions:
+        case .fetchPopularSubscriptions:
             return environment.repository
-                .fetchMySubscriptions(accountID: "")
+                .fetchSubscriptions() // TODO: fix as popular
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
-                .map(Action.subscriptionResponse)
+                .map(Action.popularSubscriptionsResponse)
                 .cancellable(id: ID(), cancelInFlight: true)
-        case .subscriptionResponse(.success(let subscriptions)):
+        case .popularSubscriptionsResponse(.success(let subscriptions)):
             state.subscriptions = subscriptions
             return .none
-        case .subscriptionResponse(.failure(let error)):
+        case .popularSubscriptionsResponse(.failure(let error)):
             state.subscriptions = []
             return .none
         }
@@ -38,7 +38,7 @@ struct Home {
     }
 
     enum Action {
-        case fetchMySubscriptions
-        case subscriptionResponse(Result<[Subscription_Subscription], Error>)
+        case fetchPopularSubscriptions
+        case popularSubscriptionsResponse(Result<[Subscription_Subscription], Error>)
     }
 }

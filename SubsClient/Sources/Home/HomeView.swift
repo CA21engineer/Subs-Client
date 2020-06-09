@@ -38,6 +38,8 @@ struct HomeView: View {
                             MenuView()
                     })
                 )
+            }.onAppear {
+//                viewStore.send(.fetchMySubscriptions)
             }
         }
     }
