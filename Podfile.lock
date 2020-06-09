@@ -100,7 +100,6 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
-  - Nuke (9.1.0)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
   - SwiftNIO (2.15.0):
@@ -146,7 +145,6 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - gRPC-Swift (= 1.0.0-alpha.12)
-  - Nuke
 
 SPEC REPOS:
   trunk:
@@ -174,7 +172,6 @@ SPEC REPOS:
     - gRPC-Swift
     - Logging
     - nanopb
-    - Nuke
     - PromisesObjC
     - Protobuf
     - SwiftNIO
@@ -213,7 +210,6 @@ SPEC CHECKSUMS:
   gRPC-Swift: d4432e8659f1d075b9d07963c18e6791c8b159c3
   Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
-  Nuke: c97bf6006d31687cfa7c28507305143de27a4aa1
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SwiftNIO: c9889dcd8aed2655af9163b42fc11ebd4ce94252
@@ -227,6 +223,6 @@ SPEC CHECKSUMS:
   SwiftNIOTransportServices: 26d40c589fc8fe667af51b06ef0aa49fbc9ae7f2
   SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
 
-PODFILE CHECKSUM: 263aca8d2ac5deb99581a3f6ec22a0fa73b4d7c7
+PODFILE CHECKSUM: 3ed76adf1e64838a0a33ef422e5614774b695194
 
 COCOAPODS: 1.9.3
