@@ -11,7 +11,7 @@ import NIO
 
 extension Subscription_Subscription: Identifiable {
     public var id: String {
-        return self.subscriptionID
+        subscriptionID
     }
 }
 
@@ -93,7 +93,7 @@ public struct Repository: RepositoryProtocol {
         }
 
         do {
-            let _ = try client.createSubscription(request).response.wait()
+            _ = try client.createSubscription(request).response.wait()
             return .init(value: ())
         } catch let e {
             return .init(error: e)
@@ -112,7 +112,7 @@ public struct Repository: RepositoryProtocol {
         }
 
         do {
-            let _ = try client.registerSubscription(request).response.wait()
+            _ = try client.registerSubscription(request).response.wait()
             return .init(value: ())
         } catch let e {
             return .init(error: e)

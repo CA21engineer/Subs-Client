@@ -5,8 +5,8 @@
 //  Created by 長田卓馬 on 2020/06/08.
 //
 
-import SwiftUI
 import ComposableArchitecture
+import SwiftUI
 
 struct MenuView: View {
     @State private var selectedTabIndex = 0
@@ -23,27 +23,28 @@ struct MenuView: View {
 
     var body: some View {
 //        WithViewStore(self.store) { viewStore in
-            NavigationView {
-                VStack(alignment: .leading) {
-                    SlidingTabView(selection: $selectedTabIndex, tabs: tabs.map { $0.title })
-                    SubscriptionListView(subscriptions: [])
-                }
-                .navigationBarTitle("選択する", displayMode: .inline)
-                .navigationBarItems(
-                    trailing: Button(action: {
-                        self.showModal = true
-                    }, label: {
-                        Image(systemName: "paperplane.fill")
-                            .foregroundColor(.black)
-                            .font(.system(size: 20))
+        NavigationView {
+            VStack(alignment: .leading) {
+                SlidingTabView(selection: $selectedTabIndex, tabs: tabs.map { $0.title })
+                SubscriptionListView(subscriptions: [])
+            }
+            .navigationBarTitle("選択する", displayMode: .inline)
+            .navigationBarItems(
+                trailing: Button(action: {
+                    self.showModal = true
+                }, label: {
+                    Image(systemName: "paperplane.fill")
+                        .foregroundColor(.black)
+                        .font(.system(size: 20))
                     })
                     .sheet(
                         isPresented: self.$showModal,
                         content: {
                             SubscriptionFormView()
-                    })
-                )
-            }
+                        }
+                    )
+            )
+        }
 //        }
     }
 }
