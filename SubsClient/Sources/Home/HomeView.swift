@@ -1,5 +1,5 @@
-import ComposableArchitecture
 import SwiftUI
+import ComposableArchitecture
 
 struct HomeView: View {
     private let store: Store<Home.State, Home.Action>
@@ -32,12 +32,11 @@ struct HomeView: View {
                             .foregroundColor(.black)
                             .font(.system(size: 25))
                     })
-                        .sheet(
-                            isPresented: self.$showModal,
-                            content: {
-                                MenuView()
-                            }
-                        )
+                    .sheet(
+                        isPresented: self.$showModal,
+                        content: {
+                            MenuView()
+                    })
                 )
             }
         }
@@ -46,18 +45,18 @@ struct HomeView: View {
 
 #if DEBUG
 
-    struct HomeView_Previews: PreviewProvider {
-        private static let store = Store(
-            initialState: Home.State(),
-            reducer: Home.reducer,
-            environment: AppEnvironment(
-                repository: Repository(),
-                mainQueue: DispatchQueue.main.eraseToAnyScheduler()
-            )
+struct HomeView_Previews: PreviewProvider {
+    static private let store = Store(
+        initialState: Home.State(),
+        reducer: Home.reducer,
+        environment: AppEnvironment(
+            repository: Repository(),
+            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )
+    )
 
-        static var previews: some View {
-            HomeView(store: store)
-        }
+    static var previews: some View {
+        HomeView(store: store)
     }
+}
 #endif

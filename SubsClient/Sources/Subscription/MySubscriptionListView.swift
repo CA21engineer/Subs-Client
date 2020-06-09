@@ -36,7 +36,6 @@ struct MySubscriptionListView_Previews: PreviewProvider {
     static var previews: some View {
         MySubscriptionListView(
             subscriptions: [],
-            tab: .oneMonth
-        )
+            tab: .oneMonth)
     }
 }

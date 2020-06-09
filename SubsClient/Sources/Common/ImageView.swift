@@ -5,8 +5,8 @@
 //  Created by 長田卓馬 on 2020/06/09.
 //
 
-import FetchImage
 import SwiftUI
+import FetchImage
 
 struct ImageView: View {
     @ObservedObject var image: FetchImage
