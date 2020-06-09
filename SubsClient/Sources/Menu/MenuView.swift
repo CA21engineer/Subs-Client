@@ -58,12 +58,12 @@ struct MenuView: View {
                         .foregroundColor(.black)
                         .font(.system(size: 20))
                 })
-                .sheet(
-                    isPresented: self.$showModal,
-                    content: {
-                        SubscriptionFormView()
-                    }
-                )
+                    .sheet(
+                        isPresented: self.$showModal,
+                        content: {
+                            SubscriptionFormView()
+                        }
+                    )
             )
         }
     }

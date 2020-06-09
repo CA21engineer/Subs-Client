@@ -5,8 +5,8 @@
 //  Created by 長田卓馬 on 2020/06/08.
 //
 
-import SwiftUI
 import ComposableArchitecture
+import SwiftUI
 
 struct RecommendSubscriptionListView: View {
     private let store: Store<RecommendSubscriptionList.State, RecommendSubscriptionList.Action>
@@ -34,7 +34,7 @@ struct RecommendSubscriptionListView: View {
 }
 
 struct RecommendSubscriptionListView_Previews: PreviewProvider {
-    static private let store = Store(
+    private static let store = Store(
         initialState: RecommendSubscriptionList.State(),
         reducer: RecommendSubscriptionList.reducer,
         environment: AppEnvironment(

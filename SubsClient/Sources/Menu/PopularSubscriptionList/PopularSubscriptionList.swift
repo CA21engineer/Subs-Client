@@ -5,8 +5,8 @@
 //  Created by 長田卓馬 on 2020/06/09.
 //
 
-import Foundation
 import ComposableArchitecture
+import Foundation
 
 struct PopularSubscriptionList {
     static let reducer = Reducer<State, Action, AppEnvironment> { state, action, environment in
@@ -18,10 +18,10 @@ struct PopularSubscriptionList {
                 .catchToEffect()
                 .map(Action.popularSubscriptionsResponse)
                 .cancellable(id: ID(), cancelInFlight: true)
-        case .popularSubscriptionsResponse(.success(let subscriptions)):
+        case let .popularSubscriptionsResponse(.success(subscriptions)):
             state.subscriptions = subscriptions
             return .none
-        case .popularSubscriptionsResponse(.failure(let error)):
+        case let .popularSubscriptionsResponse(.failure(error)):
             state.subscriptions = []
             return .none
         }

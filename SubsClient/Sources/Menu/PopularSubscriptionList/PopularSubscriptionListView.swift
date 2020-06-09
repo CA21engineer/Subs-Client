@@ -5,8 +5,8 @@
 //  Created by 長田卓馬 on 2020/06/09.
 //
 
-import SwiftUI
 import ComposableArchitecture
+import SwiftUI
 
 struct PopularSubscriptionListView: View {
     private let store: Store<PopularSubscriptionList.State, PopularSubscriptionList.Action>
@@ -34,7 +34,7 @@ struct PopularSubscriptionListView: View {
 }
 
 struct PopularSubscriptionListView_Previews: PreviewProvider {
-    static private let store = Store(
+    private static let store = Store(
         initialState: PopularSubscriptionList.State(),
         reducer: PopularSubscriptionList.reducer,
         environment: AppEnvironment(
