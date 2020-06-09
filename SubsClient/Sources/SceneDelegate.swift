@@ -16,10 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let store = Store(
                 initialState: Home.State(),
                 reducer: Home.reducer,
-                environment: AppEnvironment(
-                    repository: Repository(),
-                    mainQueue: DispatchQueue.main.eraseToAnyScheduler()
-                )
+                environment: AppEnvironment.shared
             )
             let contentView = HomeView(store: store)
             let window = UIWindow(windowScene: windowScene)

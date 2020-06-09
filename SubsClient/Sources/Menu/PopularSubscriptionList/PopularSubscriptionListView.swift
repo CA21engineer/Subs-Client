@@ -37,10 +37,7 @@ struct PopularSubscriptionListView_Previews: PreviewProvider {
     private static let store = Store(
         initialState: PopularSubscriptionList.State(),
         reducer: PopularSubscriptionList.reducer,
-        environment: AppEnvironment(
-            repository: Repository(),
-            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
-        )
+        environment: AppEnvironment.shared
     )
 
     static var previews: some View {
