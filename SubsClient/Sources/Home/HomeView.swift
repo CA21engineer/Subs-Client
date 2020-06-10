@@ -57,14 +57,13 @@ struct HomeView: View {
     }
 
     private func showOnboardingViewIfNeeded() {
-        showOnBoarding.toggle()
-//        let hasAlreadyLaunchedBefore = UserDefaults.standard.bool(forKey: "hasAlreadyLaunchedBefore")
-//        if !hasAlreadyLaunchedBefore {
-//            // show onboarding view
-//            UserDefaults.standard.set(true, forKey: "hasAlreadyLaunchedBefore")
-//            // TODO: onboardingを出すタイミングでもインストールされてるアプリが0のときは表示しない
-//            showOnBoarding.toggle()
-//        }
+        let hasAlreadyLaunchedBefore = UserDefaults.standard.bool(forKey: "hasAlreadyLaunchedBefore")
+        if !hasAlreadyLaunchedBefore {
+            // show onboarding view
+            UserDefaults.standard.set(true, forKey: "hasAlreadyLaunchedBefore")
+            // TODO: onboardingを出すタイミングでもインストールされてるアプリが0のときは表示しない
+            showOnBoarding.toggle()
+        }
     }
 }
 
