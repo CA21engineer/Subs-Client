@@ -13,6 +13,18 @@ struct MenuView: View {
     @State private var showModal: Bool = false
     private let tabs = MenuTab.allCases
 
+    private let recommendStore = Store(
+        initialState: RecommendSubscriptionList.State(),
+        reducer: RecommendSubscriptionList.reducer,
+        environment: AppEnvironment.shared
+    )
+
+    private let popularStore = Store(
+        initialState: PopularSubscriptionList.State(),
+        reducer: PopularSubscriptionList.reducer,
+        environment: AppEnvironment.shared
+    )
+
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.shadowColor = .clear
@@ -22,11 +34,14 @@ struct MenuView: View {
     }
 
     var body: some View {
-//        WithViewStore(self.store) { viewStore in
         NavigationView {
             VStack(alignment: .leading) {
                 SlidingTabView(selection: $selectedTabIndex, tabs: tabs.map { $0.title })
-                SubscriptionListView(subscriptions: [])
+                if selectedTabIndex == 0 {
+                    RecommendSubscriptionListView(store: recommendStore)
+                } else if selectedTabIndex == 1 {
+                    PopularSubscriptionListView(store: popularStore)
+                }
             }
             .navigationBarTitle("選択する", displayMode: .inline)
             .navigationBarItems(
@@ -36,7 +51,7 @@ struct MenuView: View {
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(.black)
                         .font(.system(size: 20))
-                    })
+                })
                     .sheet(
                         isPresented: self.$showModal,
                         content: {
@@ -45,7 +60,6 @@ struct MenuView: View {
                     )
             )
         }
-//        }
     }
 }
 

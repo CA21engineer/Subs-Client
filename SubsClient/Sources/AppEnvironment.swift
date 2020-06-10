@@ -8,7 +8,22 @@
 import ComposableArchitecture
 import Foundation
 
-struct AppEnvironment {
+final class AppEnvironment {
     let repository: Repository
     let mainQueue: AnySchedulerOf<DispatchQueue>
+
+    init(repository: Repository, mainQueue: AnySchedulerOf<DispatchQueue>) {
+        self.repository = repository
+        self.mainQueue = mainQueue
+    }
+
+    class var shared: AppEnvironment {
+        struct Static {
+            static let instance = AppEnvironment(
+                repository: Repository(),
+                mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+            )
+        }
+        return Static.instance
+    }
 }

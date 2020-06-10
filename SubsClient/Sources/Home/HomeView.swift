@@ -40,6 +40,9 @@ struct HomeView: View {
                         )
                 )
             }
+            .onAppear {
+                viewStore.send(.fetchMySubscriptions)
+            }
         }
     }
 }
@@ -50,10 +53,7 @@ struct HomeView: View {
         private static let store = Store(
             initialState: Home.State(),
             reducer: Home.reducer,
-            environment: AppEnvironment(
-                repository: Repository(),
-                mainQueue: DispatchQueue.main.eraseToAnyScheduler()
-            )
+            environment: AppEnvironment.shared
         )
 
         static var previews: some View {
