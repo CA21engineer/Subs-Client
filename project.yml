@@ -40,6 +40,7 @@ targets:
               name: "Run Format"
         settings:
             PRODUCT_BUNDLE_IDENTIFIER: jp.ca21engineer.SubsClient
+            CODE_SIGN_ENTITLEMENTS: SubsClient/SubsClient.entitlements
         dependencies:
             - package: ComposableArchitecture
             - package: FetchImage
