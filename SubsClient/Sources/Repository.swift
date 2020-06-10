@@ -15,7 +15,7 @@ extension Subscription_Subscription: Identifiable {
     }
 }
 
-public protocol RepositoryProtocol {
+protocol RepositoryProtocol {
     func fetchIconImages() -> Effect<[Subscription_IconImage], Error>
     func fetchMySubscriptions(userID: String) -> Effect<[Subscription_Subscription], Error>
     func fetchSubscriptions() -> Effect<[Subscription_Subscription], Error>
@@ -51,7 +51,7 @@ public protocol RepositoryProtocol {
     ) -> Effect<Subscription_UnregisterSubscriptionResponse, Error>
 }
 
-public struct Repository: RepositoryProtocol {
+struct Repository: RepositoryProtocol {
     private let client: Subscription_SubscriptionServiceClient = {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         let configuration = ClientConnection.Configuration(
@@ -62,9 +62,9 @@ public struct Repository: RepositoryProtocol {
         return Subscription_SubscriptionServiceClient(channel: connection)
     }()
 
-    public init() {}
+    init() {}
 
-    public func fetchIconImages() -> Effect<[Subscription_IconImage], Error> {
+    func fetchIconImages() -> Effect<[Subscription_IconImage], Error> {
         do {
             let response = try client.getIconImageList(.init()).response.wait()
             return .init(value: response.iconImage)
@@ -73,7 +73,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func fetchMySubscriptions(userID: String) -> Effect<[Subscription_Subscription], Error> {
+    func fetchMySubscriptions(userID: String) -> Effect<[Subscription_Subscription], Error> {
         let request = Subscription_GetMySubscriptionRequest.with {
             $0.userID = userID
         }
@@ -85,7 +85,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func fetchSubscriptions() -> Effect<[Subscription_Subscription], Error> {
+    func fetchSubscriptions() -> Effect<[Subscription_Subscription], Error> {
         let request = Subscription_GetSubscriptionsRequest()
         do {
             let response = try client.getSubscriptions(request).response.wait()
@@ -95,7 +95,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func createSubscription(
+    func createSubscription(
         userID: String,
         serviceName: String,
         iconID: String,
@@ -122,7 +122,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func registerSubscription(
+    func registerSubscription(
         userID: String,
         subscriptionID: String,
         price: Int32,
@@ -145,7 +145,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func updateSubscripiton(
+    func updateSubscripiton(
         userSubscriptionID: String,
         userID: String,
         iconID: String,
@@ -174,7 +174,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func unregisterSubscription(
+    func unregisterSubscription(
         userID: String,
         userSubscriptionID: String
     ) -> Effect<Subscription_UnregisterSubscriptionResponse, Error> {
