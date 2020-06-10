@@ -35,7 +35,7 @@ protocol RepositoryProtocol {
         cycle: Int32,
         startedAt: Date
     ) -> Effect<Subscription_RegisterSubscriptionResponse, Error>
-    func updateSubscripiton(
+    func updateSubscripton(
         userSubscriptionID: String,
         userID: String,
         iconID: String,
@@ -145,7 +145,7 @@ struct Repository: RepositoryProtocol {
         }
     }
 
-    func updateSubscripiton(
+    func updateSubscripton(
         userSubscriptionID: String,
         userID: String,
         iconID: String,
