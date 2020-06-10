@@ -26,7 +26,7 @@ struct PopularSubscriptionListView: View {
             }
             .edgesIgnoringSafeArea([.bottom])
             .onAppear {
-//                viewStore.send(.fetchPopularSubscriptions)
+                viewStore.send(.fetchPopularSubscriptions)
                 UITableView.appearance().separatorStyle = .none
             }
         }

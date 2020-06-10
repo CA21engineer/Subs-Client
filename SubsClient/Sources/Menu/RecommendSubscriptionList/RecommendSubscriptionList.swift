@@ -12,12 +12,13 @@ struct RecommendSubscriptionList {
     static let reducer = Reducer<State, Action, AppEnvironment> { state, action, environment in
         switch action {
         case .fetchRecommendSubscriptions:
-            return environment.repository
-                .fetchSubscriptions() // TODO: fix as recommend
-                .receive(on: environment.mainQueue)
-                .catchToEffect()
-                .map(Action.recommendSubscriptionsResponse)
-                .cancellable(id: ID(), cancelInFlight: true)
+//            return environment.repository
+//                .fetchSubscriptions() // TODO: fix as recommend
+//                .receive(on: environment.mainQueue)
+//                .catchToEffect()
+//                .map(Action.recommendSubscriptionsResponse)
+//                .cancellable(id: ID(), cancelInFlight: true)
+            return .init(value: .recommendSubscriptionsResponse(.success([])))
         case let .recommendSubscriptionsResponse(.success(subscriptions)):
             state.subscriptions = subscriptions
             return .none
@@ -25,7 +26,7 @@ struct RecommendSubscriptionList {
             state.subscriptions = []
             return .none
         }
-    }
+    }.debug()
 
     struct ID: Hashable {}
 

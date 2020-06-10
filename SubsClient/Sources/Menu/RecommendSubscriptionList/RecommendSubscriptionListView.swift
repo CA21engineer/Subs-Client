@@ -26,7 +26,7 @@ struct RecommendSubscriptionListView: View {
             }
             .edgesIgnoringSafeArea([.bottom])
             .onAppear {
-//                viewStore.send(.fetchRecommendSubscriptions)
+                viewStore.send(.fetchRecommendSubscriptions)
                 UITableView.appearance().separatorStyle = .none
             }
         }

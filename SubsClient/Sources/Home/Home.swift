@@ -12,12 +12,13 @@ struct Home {
     static let reducer = Reducer<State, Action, AppEnvironment> { state, action, environment in
         switch action {
         case .fetchMySubscriptions:
-            return environment.repository
-                .fetchMySubscriptions(accountID: "")
-                .receive(on: environment.mainQueue)
-                .catchToEffect()
-                .map(Action.subscriptionResponse)
-                .cancellable(id: ID(), cancelInFlight: true)
+//            return environment.repository
+//                .fetchMySubscriptions(accountID: "")
+//                .receive(on: environment.mainQueue)
+//                .catchToEffect()
+//                .map(Action.subscriptionResponse)
+//                .cancellable(id: ID(), cancelInFlight: true)
+            return .init(value: .subscriptionResponse(.success([])))
         case let .subscriptionResponse(.success(subscriptions)):
             state.subscriptions = subscriptions
             return .none
@@ -25,7 +26,7 @@ struct Home {
             state.subscriptions = []
             return .none
         }
-    }
+    }.debug()
 
     struct ID: Hashable {}
 
