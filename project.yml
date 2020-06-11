@@ -7,6 +7,9 @@ packages:
     FetchImage:
       url: https://github.com/kean/FetchImage
       from: 0.2.1
+    Grid:
+      url: https://github.com/spacenation/swiftui-grid
+      from: 1.0.4
 
 targetTemplates:
     Framework:
@@ -44,3 +47,4 @@ targets:
         dependencies:
             - package: ComposableArchitecture
             - package: FetchImage
+            - package: Grid
