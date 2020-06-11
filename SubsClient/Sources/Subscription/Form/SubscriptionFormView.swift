@@ -78,7 +78,6 @@ struct SubscriptionFormView: View {
                                 send: SubscriptionForm.Action.changeStartedAt
                             )
                         )
-
                     }
                     .padding()
                     .border(Color(UIColor.systemGray2), width: 1)
@@ -89,7 +88,8 @@ struct SubscriptionFormView: View {
                 .navigationBarItems(
                     trailing: Button(action: {}) {
                         Text("登録")
-                })
+                    }.disabled(!viewStore.canSend)
+                )
             }
         }
     }
