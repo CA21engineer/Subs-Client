@@ -64,13 +64,8 @@ struct SubscriptionRepositoryImpl: SubscriptionRepository {
             $0.freeTrial = freeTrial
             $0.startedAt = .init(date: startedAt)
         }
-
-        do {
-            let response = try client.createSubscription(request).response.wait()
-            return .init(value: response)
-        } catch let e {
-            return .init(error: e)
-        }
+        return client.createSubscription(request).response
+            .receiveEffectWhenComplete()
     }
 
     func registerSubscription(
@@ -87,13 +82,8 @@ struct SubscriptionRepositoryImpl: SubscriptionRepository {
             $0.cycle = cycle
             $0.startedAt = .init(date: startedAt)
         }
-
-        do {
-            let respose = try client.registerSubscription(request).response.wait()
-            return .init(value: respose)
-        } catch let e {
-            return .init(error: e)
-        }
+        return client.registerSubscription(request).response
+            .receiveEffectWhenComplete()
     }
 
     func updateSubscription(
@@ -116,13 +106,8 @@ struct SubscriptionRepositoryImpl: SubscriptionRepository {
             $0.freeTrial = freeTrial
             $0.startedAt = .init(date: startedAt)
         }
-
-        do {
-            let response = try client.updateSubscription(request).response.wait()
-            return .init(value: response)
-        } catch let e {
-            return .init(error: e)
-        }
+        return client.updateSubscription(request).response
+            .receiveEffectWhenComplete()
     }
 
     func unregisterSubscription(
@@ -133,12 +118,7 @@ struct SubscriptionRepositoryImpl: SubscriptionRepository {
             $0.userSubscriptionID = userSubscriptionID
             $0.userID = userID
         }
-
-        do {
-            let response = try client.unregisterSubscription(request).response.wait()
-            return .init(value: response)
-        } catch let e {
-            return .init(error: e)
-        }
+        return client.unregisterSubscription(request).response
+            .receiveEffectWhenComplete()
     }
 }

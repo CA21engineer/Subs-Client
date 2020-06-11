@@ -9,16 +9,15 @@ import ComposableArchitecture
 import Foundation
 
 struct PopularSubscriptionList {
-    static let reducer = Reducer<State, Action, Environment> { state, action, _ in
+    static let reducer = Reducer<State, Action, Environment> { state, action, environment in
         switch action {
         case .fetchPopularSubscriptions:
-//            return environment.repository
-//                .fetchSubscriptions() // TODO: fix as popular
-//                .receive(on: environment.mainQueue)
-//                .catchToEffect()
-//                .map(Action.popularSubscriptionsResponse)
-//                .cancellable(id: ID(), cancelInFlight: true)
-            return .init(value: .popularSubscriptionsResponse(.success([])))
+            return environment.popularSubscriptionsRepository
+                .fetch()
+                .receive(on: environment.mainQueue)
+                .catchToEffect()
+                .map(Action.popularSubscriptionsResponse)
+                .cancellable(id: ID(), cancelInFlight: true)
         case let .popularSubscriptionsResponse(.success(subscriptions)):
             state.subscriptions = subscriptions
             return .none
