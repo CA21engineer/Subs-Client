@@ -32,7 +32,7 @@ struct SubscriptionForm {
         case createFinished(Result<Subscription_CreateSubscriptionResponse, Error>)
     }
 
-    static let reducer = Reducer<State, Action, AppEnvironment> { state, action, environment in
+    static let reducer = Reducer<State, Action, Environment> { state, action, environment in
         switch action {
         case let .changePrice(price):
             state.price = price
@@ -68,6 +68,11 @@ struct SubscriptionForm {
         }
 
         return .none
+    }
+
+    struct Environment {
+        let subscriptionRepository: SubscriptionRepository
+        let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 
     struct ID: Hashable {}
