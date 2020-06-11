@@ -6,6 +6,8 @@
 //
 
 import ComposableArchitecture
+import GRPC
+import NIO
 
 struct IconImageRepositoryImpl: SubscriptionServiceRequestable {
     typealias ResponseType = [Subscription_IconImage]
@@ -13,11 +15,8 @@ struct IconImageRepositoryImpl: SubscriptionServiceRequestable {
     let client: Subscription_SubscriptionServiceClient
 
     func fetch() -> Effect<ResponseType, Error> {
-        do {
-            let response = try client.getIconImageList(.init()).response.wait()
-            return .init(value: response.iconImage)
-        } catch {
-            return .init(error: error)
-        }
+        client.getIconImageList(.init()).response
+            .map { $0.iconImage }
+            .receiveEffectWhenComplete()
     }
 }
