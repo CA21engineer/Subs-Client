@@ -29,6 +29,7 @@ struct DatePickerTextField: View {
                 Text(dateFormatter.string(from: binding.wrappedValue))
                     .onTapGesture {
                         withAnimation {
+                            UIApplication.shared.endEditing()
                             self.showsDatePicker.toggle()
                         }
                     }
@@ -36,8 +37,9 @@ struct DatePickerTextField: View {
             if showsDatePicker {
                 DatePicker(
                     selection: binding,
-                    displayedComponents: .date) {
-                        Text(label)
+                    displayedComponents: .date
+                ) {
+                    Text(label)
                 }
                 .labelsHidden()
             }
