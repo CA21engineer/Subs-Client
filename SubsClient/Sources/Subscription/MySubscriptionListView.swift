@@ -35,8 +35,18 @@ struct MySubscriptionListView: View {
 struct MySubscriptionListView_Previews: PreviewProvider {
     static var previews: some View {
         MySubscriptionListView(
-            subscriptions: [],
+            subscriptions: [
+                Subscription_Subscription.with { subscription in
+                    subscription.price = 800
+                    subscription.serviceName = "Netflix"
+                },
+                Subscription_Subscription.with { subscription in
+                    subscription.price = 800
+                    subscription.serviceName = "Netflix"
+                },
+            ],
             tab: .oneMonth
         )
+        .environment(\.colorScheme, .dark)
     }
 }

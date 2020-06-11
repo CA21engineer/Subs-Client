@@ -34,7 +34,7 @@ struct MenuView: View {
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.shadowColor = .clear
-        appearance.backgroundColor = UIColor(named: "background1")
+        appearance.backgroundColor = UIColor.systemBackground
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
@@ -55,7 +55,7 @@ struct MenuView: View {
                     self.showModal = true
                 }, label: {
                     Image(systemName: "paperplane.fill")
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
                         .font(.system(size: 20))
                 })
                     .sheet(

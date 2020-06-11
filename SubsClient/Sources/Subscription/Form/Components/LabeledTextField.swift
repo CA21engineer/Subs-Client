@@ -35,7 +35,6 @@ struct LabeledTextField<T>: View {
                 )
                 .multilineTextAlignment(.trailing)
             }
-            .padding(.horizontal)
             .padding(.vertical, 8)
         }
     }
