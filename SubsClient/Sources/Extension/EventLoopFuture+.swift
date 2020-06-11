@@ -7,7 +7,6 @@
 
 import ComposableArchitecture
 import Foundation
-import GRPC
 import NIO
 
 extension EventLoopFuture {
