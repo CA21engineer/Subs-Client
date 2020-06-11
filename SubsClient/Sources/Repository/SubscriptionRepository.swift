@@ -1,24 +1,16 @@
 //
-//  Repository.swift
-//  Repository
+//  SubscriptionRepository.swift
+//  SubsClient
 //
-//  Created by 伊藤凌也 on 2020/06/08.
+//  Created by 長田卓馬 on 2020/06/11.
 //
 
 import ComposableArchitecture
 import GRPC
-import NIO
 
-extension Subscription_Subscription: Identifiable {
-    public var id: String {
-        subscriptionID
-    }
-}
+protocol SubscriptionRepository {
+    var client: Subscription_SubscriptionServiceClient { get }
 
-public protocol RepositoryProtocol {
-    func fetchIconImages() -> Effect<[Subscription_IconImage], Error>
-    func fetchMySubscriptions(userID: String) -> Effect<[Subscription_Subscription], Error>
-    func fetchSubscriptions() -> Effect<[Subscription_Subscription], Error>
     func createSubscription(
         userID: String,
         serviceName: String,
@@ -35,7 +27,7 @@ public protocol RepositoryProtocol {
         cycle: Int32,
         startedAt: Date
     ) -> Effect<Subscription_RegisterSubscriptionResponse, Error>
-    func updateSubscripiton(
+    func updateSubscription(
         userSubscriptionID: String,
         userID: String,
         iconID: String,
@@ -51,51 +43,10 @@ public protocol RepositoryProtocol {
     ) -> Effect<Subscription_UnregisterSubscriptionResponse, Error>
 }
 
-public struct Repository: RepositoryProtocol {
-    private let client: Subscription_SubscriptionServiceClient = {
-        let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-        let configuration = ClientConnection.Configuration(
-            target: .hostAndPort("localhost", 18080),
-            eventLoopGroup: group
-        )
-        let connection = ClientConnection(configuration: configuration)
-        return Subscription_SubscriptionServiceClient(channel: connection)
-    }()
+struct SubscriptionRepositoryImpl: SubscriptionRepository {
+    let client: Subscription_SubscriptionServiceClient
 
-    public init() {}
-
-    public func fetchIconImages() -> Effect<[Subscription_IconImage], Error> {
-        do {
-            let response = try client.getIconImageList(.init()).response.wait()
-            return .init(value: response.iconImage)
-        } catch let e {
-            return .init(error: e)
-        }
-    }
-
-    public func fetchMySubscriptions(userID: String) -> Effect<[Subscription_Subscription], Error> {
-        let request = Subscription_GetMySubscriptionRequest.with {
-            $0.userID = userID
-        }
-        do {
-            let response = try client.getMySubscription(request).response.wait()
-            return .init(value: response.subscriptions)
-        } catch let e {
-            return .init(error: e)
-        }
-    }
-
-    public func fetchSubscriptions() -> Effect<[Subscription_Subscription], Error> {
-        let request = Subscription_GetSubscriptionsRequest()
-        do {
-            let response = try client.getSubscriptions(request).response.wait()
-            return .init(value: response.subscriptions)
-        } catch {
-            return .init(error: error)
-        }
-    }
-
-    public func createSubscription(
+    func createSubscription(
         userID: String,
         serviceName: String,
         iconID: String,
@@ -122,7 +73,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func registerSubscription(
+    func registerSubscription(
         userID: String,
         subscriptionID: String,
         price: Int32,
@@ -145,7 +96,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func updateSubscripiton(
+    func updateSubscription(
         userSubscriptionID: String,
         userID: String,
         iconID: String,
@@ -174,7 +125,7 @@ public struct Repository: RepositoryProtocol {
         }
     }
 
-    public func unregisterSubscription(
+    func unregisterSubscription(
         userID: String,
         userSubscriptionID: String
     ) -> Effect<Subscription_UnregisterSubscriptionResponse, Error> {

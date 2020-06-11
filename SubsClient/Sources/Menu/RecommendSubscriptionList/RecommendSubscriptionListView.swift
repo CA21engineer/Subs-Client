@@ -37,7 +37,10 @@ struct RecommendSubscriptionListView_Previews: PreviewProvider {
     private static let store = Store(
         initialState: RecommendSubscriptionList.State(),
         reducer: RecommendSubscriptionList.reducer,
-        environment: AppEnvironment.shared
+        environment: RecommendSubscriptionList.Environment(
+            recommendSubscriptionsRepository: AppEnvironment.shared.recommendSubscriptionsRepository,
+            mainQueue: AppEnvironment.shared.mainQueue
+        )
     )
 
     static var previews: some View {
