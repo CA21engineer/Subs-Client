@@ -74,7 +74,6 @@ struct SubscriptionFormView: View {
                         Divider()
                         DatePickerTextField(
                             label: "支払い開始日",
-                            placeholder: "2020/06/01",
                             binding: viewStore.binding(
                                 get: { $0.startedAt },
                                 send: SubscriptionForm.Action.changeStartedAt

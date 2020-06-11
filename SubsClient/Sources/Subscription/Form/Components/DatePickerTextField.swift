@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct DatePickerTextField: View {
-    let label: String
-    let placeholder: String
-    let binding: Binding<Date>
+    private let label: String
+    private let binding: Binding<Date>
 
-    @State var textfieldText = ""
-    @State var showsDatePicker = false
+    init(label: String, binding: Binding<Date>) {
+        self.label = label
+        self.binding = binding
+    }
 
-    var dateFormatter: DateFormatter = {
+    @State private var showsDatePicker = false
+
+    private var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy/MM/dd"
         return dateFormatter
@@ -26,7 +29,7 @@ struct DatePickerTextField: View {
             HStack {
                 Text(label)
                 Spacer()
-                Text(dateFormatter.string(from: binding.wrappedValue))
+                Text(self.dateFormatter.string(from: binding.wrappedValue))
                     .onTapGesture {
                         withAnimation {
                             UIApplication.shared.endEditing()
@@ -34,9 +37,9 @@ struct DatePickerTextField: View {
                         }
                     }
             }
-            if showsDatePicker {
+            if self.showsDatePicker {
                 DatePicker(
-                    selection: binding,
+                    selection: self.binding,
                     displayedComponents: .date
                 ) {
                     Text(label)
@@ -53,7 +56,6 @@ struct DatePickerTextField_Previews: PreviewProvider {
     static var previews: some View {
         DatePickerTextField(
             label: "Sample",
-            placeholder: "This is placeholder",
             binding: Binding<Date>.init(
                 get: { Date() },
                 set: { _ in }
