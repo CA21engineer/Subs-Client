@@ -22,10 +22,25 @@ struct HomeView: View {
             NavigationView {
                 VStack(alignment: .leading) {
                     SlidingTabView(selection: self.$selectedTabIndex, tabs: self.tabs.map { $0.title })
-                    MySubscriptionListView(subscriptions: viewStore.subscriptions, tab: HomeTab(rawValue: self.selectedTabIndex)!)
-                        .onAppear {
-                            self.showOnboardingViewIfNeeded()
+                    if viewStore.subscriptions.isEmpty {
+                        VStack(alignment: .center) {
+                            Spacer()
+                            HStack(alignment: .center) {
+                                Spacer()
+                                NoContentView {
+                                    self.showMenu.toggle()
+                                }
+                                Spacer()
+                            }
+                            .padding(.bottom, 48)
+                            Spacer()
                         }
+                    } else {
+                        MySubscriptionListView(
+                            subscriptions: viewStore.subscriptions,
+                            tab: HomeTab(rawValue: self.selectedTabIndex)!
+                        )
+                    }
                 }
                 .navigationBarTitle("Subs", displayMode: .inline)
                 .navigationBarItems(
@@ -43,6 +58,9 @@ struct HomeView: View {
                             }
                         )
                 )
+                .onAppear {
+                    self.showOnboardingViewIfNeeded()
+                }
             }
             .sheet(
                 isPresented: self.$showOnBoarding,
