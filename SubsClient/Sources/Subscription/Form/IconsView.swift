@@ -10,6 +10,8 @@ import SwiftUI
 
 struct IconsView: View {
     let icons: [Subscription_IconImage]
+    let onTap: (Subscription_IconImage) -> Void
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         ScrollView {
@@ -28,6 +30,10 @@ struct IconsView: View {
                         .foregroundColor(Color(UIColor.systemGray2))
                 )
                 .frame(maxWidth: 70, maxHeight: 70)
+                .onTapGesture {
+                    self.onTap(icon)
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             }
             .padding()
             .gridStyle(
@@ -57,7 +63,8 @@ struct IconsView_Previews: PreviewProvider {
     ]
     static var previews: some View {
         IconsView(
-            icons: icons
+            icons: icons,
+            onTap:{ _ in }
         )
     }
 }
