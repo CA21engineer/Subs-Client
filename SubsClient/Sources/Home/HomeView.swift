@@ -4,7 +4,8 @@ import SwiftUI
 struct HomeView: View {
     private let store: Store<Home.State, Home.Action>
     @State private var selectedTabIndex = 0
-    @State private var showModal: Bool = false
+    @State private var showMenu = false
+    @State private var showOnBoarding = false
     private let tabs = HomeTab.allCases
 
     init(store: Store<Home.State, Home.Action>) {
@@ -27,7 +28,7 @@ struct HomeView: View {
                             HStack(alignment: .center) {
                                 Spacer()
                                 NoContentView {
-                                    self.showModal.toggle()
+                                    self.showMenu.toggle()
                                 }
                                 Spacer()
                             }
@@ -44,23 +45,42 @@ struct HomeView: View {
                 .navigationBarTitle("Subs", displayMode: .inline)
                 .navigationBarItems(
                     trailing: Button(action: {
-                        self.showModal = true
+                        self.showMenu.toggle()
                     }, label: {
                         Image(systemName: "plus.circle.fill")
                             .foregroundColor(.black)
                             .font(.system(size: 25))
                     })
                         .sheet(
-                            isPresented: self.$showModal,
+                            isPresented: self.$showMenu,
                             content: {
                                 MenuView()
                             }
                         )
                 )
+                .onAppear {
+                    self.showOnboardingViewIfNeeded()
+                }
             }
+            .sheet(
+                isPresented: self.$showOnBoarding,
+                content: {
+                    OnBoardingView()
+                }
+            )
             .onAppear {
                 viewStore.send(.fetchMySubscriptions)
             }
+        }
+    }
+
+    private func showOnboardingViewIfNeeded() {
+        let hasAlreadyLaunchedBefore = UserDefaults.standard.bool(forKey: "hasAlreadyLaunchedBefore")
+        if !hasAlreadyLaunchedBefore {
+            // show onboarding view
+            UserDefaults.standard.set(true, forKey: "hasAlreadyLaunchedBefore")
+            // TODO: onboardingを出すタイミングでもインストールされてるアプリが0のときは表示しない
+            showOnBoarding.toggle()
         }
     }
 }
