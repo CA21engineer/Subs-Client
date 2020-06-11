@@ -53,7 +53,10 @@ struct HomeView: View {
         private static let store = Store(
             initialState: Home.State(),
             reducer: Home.reducer,
-            environment: AppEnvironment.shared
+            environment: Home.Environment(
+                mySubscriptionRepository: AppEnvironment.shared.mySubscriptionRepository,
+                mainQueue: AppEnvironment.shared.mainQueue
+            )
         )
 
         static var previews: some View {

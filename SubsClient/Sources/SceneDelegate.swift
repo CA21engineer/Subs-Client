@@ -13,10 +13,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             // Create the SwiftUI view that provides the window contents.
+            let appEnvironment = AppEnvironment.shared
             let store = Store(
                 initialState: Home.State(),
                 reducer: Home.reducer,
-                environment: AppEnvironment.shared
+                environment: Home.Environment(
+                    mySubscriptionRepository: appEnvironment.mySubscriptionRepository,
+                    mainQueue: appEnvironment.mainQueue
+                )
             )
             let contentView = HomeView(store: store)
             let window = UIWindow(windowScene: windowScene)

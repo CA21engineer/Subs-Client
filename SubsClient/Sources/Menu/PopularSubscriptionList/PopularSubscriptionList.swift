@@ -9,7 +9,7 @@ import ComposableArchitecture
 import Foundation
 
 struct PopularSubscriptionList {
-    static let reducer = Reducer<State, Action, AppEnvironment> { state, action, environment in
+    static let reducer = Reducer<State, Action, Environment> { state, action, _ in
         switch action {
         case .fetchPopularSubscriptions:
 //            return environment.repository
@@ -41,5 +41,10 @@ struct PopularSubscriptionList {
     enum Action {
         case fetchPopularSubscriptions
         case popularSubscriptionsResponse(Result<[Subscription_Subscription], Error>)
+    }
+
+    struct Environment {
+        let popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
+        let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 }

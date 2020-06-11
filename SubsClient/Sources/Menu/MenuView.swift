@@ -16,13 +16,19 @@ struct MenuView: View {
     private let recommendStore = Store(
         initialState: RecommendSubscriptionList.State(),
         reducer: RecommendSubscriptionList.reducer,
-        environment: AppEnvironment.shared
+        environment: RecommendSubscriptionList.Environment(
+            recommendSubscriptionsRepository: AppEnvironment.shared.recommendSubscriptionsRepository,
+            mainQueue: AppEnvironment.shared.mainQueue
+        )
     )
 
     private let popularStore = Store(
         initialState: PopularSubscriptionList.State(),
         reducer: PopularSubscriptionList.reducer,
-        environment: AppEnvironment.shared
+        environment: PopularSubscriptionList.Environment(
+            popularSubscriptionsRepository: AppEnvironment.shared.popularSubscriptionsRepository,
+            mainQueue: AppEnvironment.shared.mainQueue
+        )
     )
 
     init() {

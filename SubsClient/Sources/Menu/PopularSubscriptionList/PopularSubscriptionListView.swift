@@ -37,7 +37,10 @@ struct PopularSubscriptionListView_Previews: PreviewProvider {
     private static let store = Store(
         initialState: PopularSubscriptionList.State(),
         reducer: PopularSubscriptionList.reducer,
-        environment: AppEnvironment.shared
+        environment: PopularSubscriptionList.Environment(
+            popularSubscriptionsRepository: AppEnvironment.shared.popularSubscriptionsRepository,
+            mainQueue: AppEnvironment.shared.mainQueue
+        )
     )
 
     static var previews: some View {
