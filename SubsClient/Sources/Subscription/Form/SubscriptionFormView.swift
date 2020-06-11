@@ -64,7 +64,7 @@ struct SubscriptionFormView: View {
                         )
                         Divider()
                         LabeledTextField(
-                            label: "周期(ヶ月)",
+                            label: "周期(月)",
                             placeholder: "1ヶ月",
                             binding: viewStore.binding(
                                 get: { $0.cycle },
