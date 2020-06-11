@@ -12,6 +12,7 @@ struct SubscriptionForm {
     private static let yen = "¥"
 
     struct State: Equatable {
+        var iconID: String = ""
         var imageURL: URL?
         var price: Int = 0
         var serviceName: String = ""
@@ -24,6 +25,7 @@ struct SubscriptionForm {
     }
 
     enum Action {
+        case changeIcon(String, URL)
         case changePrice(Int)
         case changeServiceName(String)
         case changeCycle(Int)
@@ -34,6 +36,9 @@ struct SubscriptionForm {
 
     static let reducer = Reducer<State, Action, Environment> { state, action, environment in
         switch action {
+        case let .changeIcon(iconID, iconURL):
+            state.iconID = iconID
+            state.imageURL = iconURL
         case let .changePrice(price):
             state.price = price
         case let .changeServiceName(serviceName):
@@ -48,8 +53,7 @@ struct SubscriptionForm {
                     // TODO: set userID
                     userID: "",
                     serviceName: state.serviceName,
-                    // TODO: set iconID
-                    iconID: "",
+                    iconID: state.iconID,
                     price: Int32(state.price),
                     cycle: Int32(state.cycle),
                     // TODO: calculate freeTrial
@@ -78,7 +82,7 @@ struct SubscriptionForm {
     struct ID: Hashable {}
 
     private static func isValidToSend(state: State) -> Bool {
-        state.imageURL != nil
+        !state.iconID.isEmpty
             && !state.serviceName.isEmpty
     }
 }
