@@ -46,7 +46,7 @@ struct SubscriptionCardView: View {
                 .padding(.trailing, 8)
             }
             .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
-            .background(Color("background1"))
+            .background(Color(UIColor.systemBackground))
         }
     }
 }

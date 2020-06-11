@@ -12,7 +12,7 @@ struct HomeView: View {
         self.store = store
         let appearance = UINavigationBarAppearance()
         appearance.shadowColor = .clear
-        appearance.backgroundColor = UIColor(named: "background1")
+        appearance.backgroundColor = UIColor.systemBackground
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
@@ -48,7 +48,7 @@ struct HomeView: View {
                         self.showMenu.toggle()
                     }, label: {
                         Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                             .font(.system(size: 25))
                     })
                         .sheet(

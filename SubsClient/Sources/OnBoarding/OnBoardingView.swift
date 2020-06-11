@@ -45,7 +45,7 @@ struct OnBoardingView: View {
                     .padding(.horizontal, 18)
                     .padding(.vertical, 9)
                     .background(Color.primary)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(UIColor.systemBackground))
                     .cornerRadius(24)
             }
             .padding(.bottom, 32)

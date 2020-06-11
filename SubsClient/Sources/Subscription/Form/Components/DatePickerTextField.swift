@@ -47,7 +47,6 @@ struct DatePickerTextField: View {
                 .labelsHidden()
             }
         }
-        .padding(.horizontal)
         .padding(.vertical, 8)
     }
 }

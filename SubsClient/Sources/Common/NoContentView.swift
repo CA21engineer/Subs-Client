@@ -29,7 +29,7 @@ struct NoContentView: View {
                     .padding(.horizontal, 18)
                     .padding(.vertical, 9)
                     .background(Color.primary)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(UIColor.systemBackground))
                     .cornerRadius(24)
             }
         }

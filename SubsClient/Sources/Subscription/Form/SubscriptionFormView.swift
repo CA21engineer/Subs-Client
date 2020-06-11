@@ -31,7 +31,9 @@ struct SubscriptionFormView: View {
                             } else {
                                 ZStack {
                                     Color(UIColor.systemGray2)
-                                    Text("Add icon")
+                                    Image(systemName: "photo")
+                                        .foregroundColor(Color(UIColor.systemBackground))
+                                        .font(.system(size: 24, weight: .semibold))
                                 }
                                 .frame(width: 72, height: 72, alignment: .center)
                                 .clipShape(Circle())
@@ -110,7 +112,9 @@ struct SubscriptionFormView_Previews: PreviewProvider {
                         mainQueue: AppEnvironment.shared.mainQueue
                     )
                 )
-            ).previewLayout(.sizeThatFits)
+            )
+            .previewLayout(.sizeThatFits)
+            .environment(\.colorScheme, .dark)
         }
     }
 }
