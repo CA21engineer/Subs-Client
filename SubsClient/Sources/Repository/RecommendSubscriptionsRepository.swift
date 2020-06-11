@@ -14,11 +14,8 @@ struct RecommendSubscriptionsRepositoryImpl: SubscriptionServiceRequestable {
 
     func fetch() -> Effect<ResponseType, Error> {
         let request = Subscription_GetRecommendSubscriptionsRequest()
-        do {
-            let response = try client.getRecommendSubscriptions(request).response.wait()
-            return .init(value: response.subscriptions)
-        } catch {
-            return .init(error: error)
-        }
+        return client.getRecommendSubscriptions(request).response
+            .map { $0.subscriptions }
+            .receiveEffectWhenComplete()
     }
 }

@@ -13,11 +13,8 @@ struct PopularSubscriptionsRepositoryImpl: SubscriptionServiceRequestable {
     let client: Subscription_SubscriptionServiceClient
 
     func fetch() -> Effect<ResponseType, Error> {
-        do {
-            let response = try client.getPopularSubscriptions(.init()).response.wait()
-            return .init(value: response.subscriptions)
-        } catch {
-            return .init(error: error)
-        }
+        client.getPopularSubscriptions(.init()).response
+            .map { $0.subscriptions }
+            .receiveEffectWhenComplete()
     }
 }
