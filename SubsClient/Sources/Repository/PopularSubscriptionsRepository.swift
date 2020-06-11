@@ -6,9 +6,6 @@
 //
 
 import ComposableArchitecture
-import Foundation
-import GRPC
-import NIO
 
 struct PopularSubscriptionsRepositoryImpl: SubscriptionServiceRequestable {
     typealias ResponseType = [Subscription_Subscription]

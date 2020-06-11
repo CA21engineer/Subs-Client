@@ -6,8 +6,6 @@
 //
 
 import ComposableArchitecture
-import GRPC
-import NIO
 
 extension Subscription_Subscription: Identifiable {
     public var id: String {

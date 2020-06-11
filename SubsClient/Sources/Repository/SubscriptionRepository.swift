@@ -6,9 +6,7 @@
 //
 
 import ComposableArchitecture
-import Foundation
 import GRPC
-import NIO
 
 protocol SubscriptionRepository {
     var client: Subscription_SubscriptionServiceClient { get }
