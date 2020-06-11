@@ -20,7 +20,9 @@ struct SubscriptionFormView: View {
             NavigationView {
                 VStack {
                     VStack {
-                        Button(action: {}) {
+                        Button(action: {
+                            // show icons view
+                        }) {
                             if viewStore.imageURL != nil {
                                 ImageView(image: .init(url: viewStore.imageURL!))
                                     .frame(width: 72, height: 72, alignment: .center)
@@ -86,7 +88,9 @@ struct SubscriptionFormView: View {
                 }
                 .navigationBarTitle("登録フォーム", displayMode: .inline)
                 .navigationBarItems(
-                    trailing: Button(action: {}) {
+                    trailing: Button(action: {
+                        viewStore.send(.create)
+                    }) {
                         Text("登録")
                     }.disabled(!viewStore.canSend)
                 )
