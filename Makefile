@@ -22,3 +22,7 @@ proto: proto_clean
 
 proto_clean:
 	find . -type d | grep Generated | xargs rm -r
+
+.PHONY: swiftgen
+swiftgen:
+	mint run swiftgen swiftgen
