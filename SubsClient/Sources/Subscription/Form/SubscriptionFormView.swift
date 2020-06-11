@@ -42,20 +42,14 @@ struct SubscriptionFormView: View {
                         .buttonStyle(PlainButtonStyle())
                         .sheet(isPresented: self.$showsIconsModal) {
                             IconsView(
-                                icons: [
-                                    Subscription_IconImage.with {
-                                        $0.iconID = "1"
-                                        $0.iconUri = "https://github.com/ry-itto.png"
-                                    },
-                                    Subscription_IconImage.with {
-                                        $0.iconID = "2"
-                                        $0.iconUri = "https://github.com/takumaosada.png"
-                                    },
-                                    Subscription_IconImage.with {
-                                        $0.iconID = "3"
-                                        $0.iconUri = ""
-                                    },
-                                ],
+                                store: .init(
+                                    initialState: .init(),
+                                    reducer: Icons.reducer,
+                                    environment: Icons.Environment(
+                                        iconImageRepository: AppEnvironment.shared.iconImageRepository,
+                                        mainQueue: AppEnvironment.shared.mainQueue
+                                    )
+                                ),
                                 onTap: { icon in
                                     viewStore.send(.changeIcon(icon.iconID, icon.url!))
                                 }

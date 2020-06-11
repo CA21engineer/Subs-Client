@@ -12,3 +12,5 @@ extension Subscription_IconImage {
         URL(string: iconUri)
     }
 }
+
+extension Subscription_IconImage: Equatable {}
