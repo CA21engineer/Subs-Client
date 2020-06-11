@@ -13,8 +13,8 @@ struct RecommendSubscriptionsRepositoryImpl: SubscriptionServiceRequestable {
     let client: Subscription_SubscriptionServiceClient
 
     func fetch() -> Effect<ResponseType, Error> {
-        let request = Subscription_GetSubscriptionsRequest()
-        return client.getSubscriptions(request).response
+        let request = Subscription_GetRecommendSubscriptionsRequest()
+        return client.getRecommendSubscriptions(request).response
             .map { $0.subscriptions }
             .receiveEffectWhenComplete()
     }
