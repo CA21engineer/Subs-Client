@@ -12,7 +12,7 @@ struct IconImageRepositoryImpl: SubscriptionServiceRequestable {
 
     let client: Subscription_SubscriptionServiceClient
 
-    func fetch() -> Effect<[Subscription_IconImage], Error> {
+    func fetch() -> Effect<ResponseType, Error> {
         do {
             let response = try client.getIconImageList(.init()).response.wait()
             return .init(value: response.iconImage)
