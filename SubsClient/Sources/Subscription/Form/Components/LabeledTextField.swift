@@ -12,7 +12,7 @@ struct LabeledTextField<T>: View {
     let placeholder: String
     let binding: Binding<T>
 
-    var formatter: Formatter {
+    private var formatter: Formatter {
         switch T.self {
         case is String.Type:
             return NothingFormatter()
@@ -32,7 +32,8 @@ struct LabeledTextField<T>: View {
                     placeholder,
                     value: binding,
                     formatter: formatter
-                ).multilineTextAlignment(.trailing)
+                )
+                .multilineTextAlignment(.trailing)
             }
             .padding(.horizontal)
             .padding(.vertical, 8)
@@ -50,8 +51,9 @@ struct LabeledTextField_Previews: PreviewProvider {
                     get: { "" },
                     set: { _ in }
                 )
-            ).previewLayout(.sizeThatFits)
-                .previewDisplayName("Only placeholder")
+            )
+            .previewLayout(.sizeThatFits)
+            .previewDisplayName("Only placeholder")
             LabeledTextField(
                 label: "Sample",
                 placeholder: "This is placeholder",
@@ -59,7 +61,8 @@ struct LabeledTextField_Previews: PreviewProvider {
                     get: { "This is not placeholder" },
                     set: { _ in }
                 )
-            ).previewLayout(.sizeThatFits)
+            )
+            .previewLayout(.sizeThatFits)
             .previewDisplayName("Input text")
             LabeledTextField(
                 label: "Sample",
@@ -68,7 +71,8 @@ struct LabeledTextField_Previews: PreviewProvider {
                     get: { 9 },
                     set: { _ in }
                 )
-            ).previewLayout(.sizeThatFits)
+            )
+            .previewLayout(.sizeThatFits)
             .previewDisplayName("Int")
         }
     }
