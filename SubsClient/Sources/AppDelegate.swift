@@ -12,7 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let error = error {
                 print("Error fetching remote instance ID: \(error)")
             } else if let result = result {
+                UserDefaults.standard.set(result.token, forKey: "deviceToken")
                 print("Remote instance ID token: \(result.token)")
+                print("Remote instance ID token is saved: \(UserDefaults.standard.string(forKey: "deviceToken") ?? "Not Found..")")
             }
         }
 
