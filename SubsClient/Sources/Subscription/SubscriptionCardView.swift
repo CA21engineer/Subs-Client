@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SubscriptionCardView: View {
     private let subscription: Subscription_Subscription
+    @State private var showModal = false
 
     init(subscription: Subscription_Subscription) {
         self.subscription = subscription
@@ -45,9 +46,28 @@ struct SubscriptionCardView: View {
                 }
                 Spacer()
                 VStack {
-                    Image(systemName: "plus")
-                        .foregroundColor(.primary)
-                        .font(.system(size: 22, weight: .semibold))
+                    Button(action: {
+                        self.showModal = true
+                    }, label: {
+                        Image(systemName: "plus")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 22, weight: .semibold))
+                    })
+                        .sheet(
+                            isPresented: self.$showModal,
+                            content: {
+                                SubscriptionFormView(
+                                    store: .init(
+                                        initialState: .init(subscription: self.subscription),
+                                        reducer: SubscriptionForm.reducer,
+                                        environment: SubscriptionForm.Environment(
+                                            subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
+                                            mainQueue: AppEnvironment.shared.mainQueue
+                                        )
+                                    )
+                                )
+                            }
+                        )
                 }
                 .padding(.trailing, 8)
             }
