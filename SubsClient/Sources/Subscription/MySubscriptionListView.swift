@@ -29,7 +29,7 @@ struct MySubscriptionListView: View {
                 ForEach(self.subscriptions) { subscription in
                     MySubscriptionCardView(
                         subscription: subscription,
-                        calculateParam: self.tab.monthCount
+                        monthCount: self.tab.monthCount
                     )
                     .padding(.horizontal, -16)
                     .padding(.vertical, -6)
