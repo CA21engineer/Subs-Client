@@ -19,6 +19,15 @@ struct SubscriptionForm {
         var cycle: Int = 1
         var startedAt: Date = Date()
 
+        init() {}
+
+        init(subscription: Subscription_Subscription) {
+            imageURL = subscription.url
+            price = Int(subscription.price)
+            serviceName = subscription.serviceName
+            cycle = Int(subscription.cycle)
+        }
+
         var canSend: Bool {
             isValidToSend(state: self)
         }
