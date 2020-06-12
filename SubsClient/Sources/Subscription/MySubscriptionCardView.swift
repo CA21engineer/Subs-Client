@@ -17,12 +17,15 @@ public struct MySubscriptionCardView: View {
     public var body: some View {
         VStack {
             HStack(spacing: 16) {
-                if subscription.iconUri.isEmpty {
+                if subscription.url != nil {
+                    ImageView(image: .init(url: subscription.url!))
+                        .cornerRadius(4)
+                        .frame(width: 48, height: 48)
                     NoImageView()
                         .cornerRadius(4)
                         .frame(width: 48, height: 48)
                 } else {
-                    ImageView(image: .init(url: URL(string: subscription.iconUri)!))
+                    NoImageView()
                         .cornerRadius(4)
                         .frame(width: 48, height: 48)
                 }

@@ -57,6 +57,6 @@ struct MySubscriptionListView_Previews: PreviewProvider {
             ],
             tab: .oneMonth
         )
-        .environment(\.colorScheme, .dark)
+        .environment(\.colorScheme, .light)
     }
 }

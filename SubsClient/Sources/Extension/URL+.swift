@@ -1,5 +1,5 @@
 //
-//  Subscription_IconImage+.swift
+//  URL+.swift
 //  SubsClient
 //
 //  Created by 伊藤凌也 on 2020/06/12.
@@ -14,3 +14,11 @@ extension Subscription_IconImage {
 }
 
 extension Subscription_IconImage: Equatable {}
+
+extension Subscription_Subscription {
+    var url: URL? {
+        URL(string: iconUri)
+    }
+}
+
+extension Subscription_Subscription: Equatable {}
