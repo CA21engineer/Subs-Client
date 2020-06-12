@@ -36,6 +36,7 @@ struct SumCostView: View {
                         .padding(.top, 4)
                     Spacer()
                 }
+                .padding(.leading, 16)
             }
             Rectangle()
                 .fill(Color.white)
