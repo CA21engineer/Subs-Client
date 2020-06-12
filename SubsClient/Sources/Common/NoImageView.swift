@@ -10,7 +10,7 @@ import SwiftUI
 struct NoImageView: View {
     var body: some View {
         ZStack {
-            Rectangle().fill(Color.gray)
+            Rectangle().fill(Color.primary.opacity(0.1))
             Image(systemName: "photo")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
