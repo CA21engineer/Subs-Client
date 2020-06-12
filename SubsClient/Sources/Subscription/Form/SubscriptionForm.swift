@@ -18,14 +18,18 @@ struct SubscriptionForm {
         var serviceName: String = ""
         var cycle: Int = 1
         var startedAt: Date = Date()
+        var isOriginal: Bool = false
 
         init() {}
 
         init(subscription: Subscription_Subscription) {
+            // TODO: set actual iconID
+            iconID = "iconID"
             imageURL = subscription.url
             price = Int(subscription.price)
             serviceName = subscription.serviceName
             cycle = Int(subscription.cycle)
+            isOriginal = subscription.isOriginal
         }
 
         var canSend: Bool {
