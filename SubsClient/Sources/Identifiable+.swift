@@ -12,3 +12,9 @@ extension Subscription_Subscription: Identifiable {
         subscriptionID
     }
 }
+
+extension Subscription_IconImage: Identifiable {
+    public var id: String {
+        iconID
+    }
+}

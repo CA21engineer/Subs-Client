@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SubscriptionFormView: View {
     private let store: Store<SubscriptionForm.State, SubscriptionForm.Action>
+    @State private var showsIconsModal: Bool = false
 
     init(store: Store<SubscriptionForm.State, SubscriptionForm.Action>) {
         self.store = store
@@ -21,7 +22,7 @@ struct SubscriptionFormView: View {
                 VStack {
                     VStack {
                         Button(action: {
-                            // show icons view
+                            self.showsIconsModal = true
                         }) {
                             if viewStore.imageURL != nil {
                                 ImageView(image: .init(url: viewStore.imageURL!))
@@ -41,6 +42,21 @@ struct SubscriptionFormView: View {
                             }
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .sheet(isPresented: self.$showsIconsModal) {
+                            IconsView(
+                                store: .init(
+                                    initialState: .init(),
+                                    reducer: Icons.reducer,
+                                    environment: Icons.Environment(
+                                        iconImageRepository: AppEnvironment.shared.iconImageRepository,
+                                        mainQueue: AppEnvironment.shared.mainQueue
+                                    )
+                                ),
+                                onTap: { icon in
+                                    viewStore.send(.changeIcon(icon.iconID, icon.url!))
+                                }
+                            )
+                        }
                         HStack {
                             Text("¥")
                             TextField(
