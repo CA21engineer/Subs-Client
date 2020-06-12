@@ -20,16 +20,19 @@ struct MySubscriptionListView: View {
         List {
             Section(
                 header: SumCostView(
-                    cost: 3000, // TODO: calculate total cost
+                    cost: calculateTotalCost(),
                     count: subscriptions.count,
                     tab: tab
                 )
                 .padding(.horizontal, -16)
             ) {
                 ForEach(self.subscriptions) { subscription in
-                    MySubscriptionCardView(subscription: subscription)
-                        .padding(.horizontal, -16)
-                        .padding(.vertical, -6)
+                    MySubscriptionCardView(
+                        subscription: subscription,
+                        calculateParam: self.tab.monthCount
+                    )
+                    .padding(.horizontal, -16)
+                    .padding(.vertical, -6)
                 }
             }
         }
@@ -37,6 +40,13 @@ struct MySubscriptionListView: View {
         .onAppear {
             UITableView.appearance().separatorStyle = .none
         }
+    }
+
+    private func calculateTotalCost() -> Int {
+        let costs = subscriptions.map { subscription -> Int in
+            Int(Int32(self.tab.monthCount) * subscription.price / subscription.cycle)
+        }
+        return costs.reduce(0, +)
     }
 }
 
