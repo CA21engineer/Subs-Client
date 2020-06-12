@@ -16,37 +16,40 @@ struct IconsView: View {
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            ScrollView {
-                Grid(viewStore.icons.filter { $0.url != nil }) { icon in
-                    Group {
-                        ImageView(
-                            image: .init(url: icon.url!)
+            NavigationView {
+                ScrollView {
+                    Grid(viewStore.icons.filter { $0.url != nil }) { icon in
+                        Group {
+                            ImageView(
+                                image: .init(url: icon.url!)
+                            )
+                        }
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .padding()
+                        .cornerRadius(16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(lineWidth: 0.5)
+                                .foregroundColor(Color(UIColor.systemGray2))
                         )
+                        .frame(maxWidth: 70, maxHeight: 70)
+                        .onTapGesture {
+                            self.onTap(icon)
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     }
-                    .aspectRatio(1.0, contentMode: .fit)
                     .padding()
-                    .cornerRadius(16)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(lineWidth: 0.5)
-                            .foregroundColor(Color(UIColor.systemGray2))
+                    .gridStyle(
+                        ModularGridStyle(
+                            columns: .count(5),
+                            rows: .fixed(70)
+                        )
                     )
-                    .frame(maxWidth: 70, maxHeight: 70)
-                    .onTapGesture {
-                        self.onTap(icon)
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
                 }
-                .padding()
-                .gridStyle(
-                    ModularGridStyle(
-                        columns: .count(5),
-                        rows: .fixed(70)
-                    )
-                )
-            }
-            .onAppear {
-                viewStore.send(.load)
+                .navigationBarTitle("アイコンを選択する", displayMode: .inline)
+                .onAppear {
+                    viewStore.send(.load)
+                }
             }
         }
     }
@@ -63,7 +66,7 @@ struct IconsView_Previews: PreviewProvider {
                     mainQueue: AppEnvironment.shared.mainQueue
                 )
             ),
-            onTap:{ _ in }
+            onTap: { _ in }
         )
     }
 }
