@@ -18,6 +18,7 @@ struct SubscriptionForm {
         var serviceName: String = ""
         var cycle: Int = 1
         var startedAt: Date = Date()
+        var isOriginal: Bool = false
 
         init() {}
 
@@ -28,6 +29,7 @@ struct SubscriptionForm {
             price = Int(subscription.price)
             serviceName = subscription.serviceName
             cycle = Int(subscription.cycle)
+            isOriginal = subscription.isOriginal
         }
 
         var canSend: Bool {

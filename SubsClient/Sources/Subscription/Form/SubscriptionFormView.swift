@@ -41,6 +41,7 @@ struct SubscriptionFormView: View {
                                 .clipped()
                             }
                         }
+                        .disabled(viewStore.isOriginal)
                         .buttonStyle(PlainButtonStyle())
                         .sheet(isPresented: self.$showsIconsModal) {
                             IconsView(
