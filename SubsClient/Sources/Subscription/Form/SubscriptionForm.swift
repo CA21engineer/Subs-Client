@@ -22,6 +22,8 @@ struct SubscriptionForm {
         init() {}
 
         init(subscription: Subscription_Subscription) {
+            // TODO: set actual iconID
+            iconID = "iconID"
             imageURL = subscription.url
             price = Int(subscription.price)
             serviceName = subscription.serviceName
@@ -73,11 +75,9 @@ struct SubscriptionForm {
                 .map(Action.createFinished)
                 .cancellable(id: ID(), cancelInFlight: true)
         case let .createFinished(.success(response)):
-            // do something
-            break
+            print("created with \(response)")
         case let .createFinished(.failure(e)):
-            // do something
-            break
+            assertionFailure(e.localizedDescription)
         }
 
         return .none
