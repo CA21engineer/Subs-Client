@@ -30,11 +30,9 @@ struct SubscriptionForm {
         case changeServiceName(String)
         case changeCycle(Int)
         case changeStartedAt(Date)
-        case create
-        case createFinished(Result<Subscription_CreateSubscriptionResponse, Error>)
     }
 
-    static let reducer = Reducer<State, Action, Environment> { state, action, environment in
+    static let reducer = Reducer<State, Action, Environment> { state, action, _ in
         switch action {
         case let .changeIcon(iconID, iconURL):
             state.iconID = iconID
@@ -47,37 +45,13 @@ struct SubscriptionForm {
             state.cycle = cycle
         case let .changeStartedAt(startedAt):
             state.startedAt = startedAt
-        case .create:
-            return environment.subscriptionRepository
-                .createSubscription(
-                    // TODO: set userID
-                    userID: "",
-                    serviceName: state.serviceName,
-                    iconID: state.iconID,
-                    price: Int32(state.price),
-                    cycle: Int32(state.cycle),
-                    // TODO: calculate freeTrial
-                    freeTrial: 0,
-                    startedAt: state.startedAt
-                )
-                .catchToEffect()
-                .map(Action.createFinished)
-                .cancellable(id: ID(), cancelInFlight: true)
-        case let .createFinished(.success(response)):
-            // do something
-            break
-        case let .createFinished(.failure(e)):
-            // do something
-            break
         }
-
         return .none
     }
+    .debug()
+    .debugActions()
 
-    struct Environment {
-        let subscriptionRepository: SubscriptionRepository
-        let mainQueue: AnySchedulerOf<DispatchQueue>
-    }
+    struct Environment {}
 
     struct ID: Hashable {}
 
