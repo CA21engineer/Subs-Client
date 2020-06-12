@@ -11,6 +11,14 @@ import Foundation
 struct SubscriptionCreateForm {
     struct State: Equatable {
         var formState: SubscriptionForm.State
+
+        init() {
+            formState = .init()
+        }
+
+        init(subscription: Subscription_Subscription) {
+            formState = .init(subscription: subscription)
+        }
     }
 
     enum Action {
@@ -23,7 +31,7 @@ struct SubscriptionCreateForm {
         SubscriptionForm.reducer.pullback(
             state: \.formState,
             action: /Action.formAction,
-            environment: {_ in
+            environment: { _ in
                 SubscriptionForm.Environment()
             }
         ),

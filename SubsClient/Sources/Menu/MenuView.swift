@@ -63,9 +63,7 @@ struct MenuView: View {
                         content: {
                             SubscriptionCreateFormView(
                                 store: .init(
-                                    initialState: .init(
-                                        formState: .init()
-                                    ),
+                                    initialState: .init(),
                                     reducer: SubscriptionCreateForm.reducer,
                                     environment: SubscriptionCreateForm.Environment(
                                         subscriptionRepository: AppEnvironment.shared.subscriptionRepository,

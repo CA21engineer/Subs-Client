@@ -9,6 +9,7 @@ import SwiftUI
 
 public struct MySubscriptionCardView: View {
     private let subscription: Subscription_Subscription
+    @State private var showsModal = false
 
     init(subscription: Subscription_Subscription) {
         self.subscription = subscription
@@ -52,6 +53,24 @@ public struct MySubscriptionCardView: View {
                     .lineLimit(0)
             }
             .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
+            .onTapGesture {
+                self.showsModal = true
+            }
+            .sheet(
+                isPresented: $showsModal,
+                content: {
+                    SubscriptionDetailView(
+                        store: .init(
+                            initialState: .init(subscription: self.subscription),
+                            reducer: SubscriptionDetail.reducer,
+                            environment: SubscriptionDetail.Environment(
+                                subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
+                                mainQueue: AppEnvironment.shared.mainQueue
+                            )
+                        )
+                    )
+                }
+            )
         }
     }
 }

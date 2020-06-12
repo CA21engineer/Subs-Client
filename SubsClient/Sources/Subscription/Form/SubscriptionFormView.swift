@@ -96,7 +96,6 @@ struct SubscriptionFormView: View {
                 .padding()
                 .border(Color(UIColor.systemGray2), width: 1)
                 .padding()
-                Spacer()
             }
         }
     }
