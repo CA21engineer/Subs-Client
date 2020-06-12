@@ -26,6 +26,19 @@ enum HomeTab: Int, CaseIterable {
         }
     }
 
+    var headerTitle: String {
+        switch self {
+        case .oneMonth:
+            return "月"
+        case .threeMonth:
+            return "3ヶ月"
+        case .halfYear:
+            return "半年"
+        case .oneYear:
+            return "年"
+        }
+    }
+
     var monthCount: Int {
         switch self {
         case .oneMonth:
