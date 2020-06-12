@@ -12,7 +12,7 @@ xcodegen:
 export PATH += :$(PWD)/bin
 GRPC_OUT:=./SubsClient/Sources/Generated
 .PHONY: proto
-proto: proto_clean
+proto:
 	mkdir -p $(GRPC_OUT)
 	protoc ./Subs-server/protobuf/subscription.proto \
 	    --proto_path ./Subs-server/protobuf \
@@ -20,5 +20,6 @@ proto: proto_clean
 	    --swift_out Visibility=Public:$(GRPC_OUT) 
 	./scripts/xcodegen.sh
 
-proto_clean:
-	find . -type d | grep Generated | xargs rm -r
+.PHONY: swiftgen
+swiftgen:
+	mint run swiftgen swiftgen
