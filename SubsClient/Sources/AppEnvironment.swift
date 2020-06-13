@@ -11,6 +11,7 @@ import GRPC
 import NIO
 
 final class AppEnvironment {
+    let firebaseRepository: FirebaseRepository
     let iconImageRepository: AnySubscriptionServiceRequestable<[Subscription_IconImage]>
     let popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
     let recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
@@ -19,6 +20,7 @@ final class AppEnvironment {
     let mainQueue: AnySchedulerOf<DispatchQueue>
 
     init(
+        firebaseRepository: FirebaseRepository,
         iconImageRepository: AnySubscriptionServiceRequestable<[Subscription_IconImage]>,
         popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
         recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
@@ -26,6 +28,7 @@ final class AppEnvironment {
         mySubscriptionRepository: MySubscriptionsRepository,
         mainQueue: AnySchedulerOf<DispatchQueue>
     ) {
+        self.firebaseRepository = firebaseRepository
         self.iconImageRepository = iconImageRepository
         self.popularSubscriptionsRepository = popularSubscriptionsRepository
         self.recommendSubscriptionsRepository = recommendSubscriptionsRepository
@@ -47,6 +50,7 @@ final class AppEnvironment {
                     return Subscription_SubscriptionServiceClient(channel: connection)
                 }()
                 return AppEnvironment(
+                    firebaseRepository: FirebaseRepositoryImpl(),
                     iconImageRepository: AnySubscriptionServiceRequestable<[Subscription_IconImage]>(IconImageRepositoryImpl(client: client)),
                     popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(PopularSubscriptionsRepositoryImpl(client: client)),
                     recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(RecommendSubscriptionsRepositoryImpl(client: client)),
