@@ -24,9 +24,6 @@ public struct MySubscriptionCardView: View {
                     ImageView(image: .init(url: subscription.url!))
                         .cornerRadius(4)
                         .frame(width: 48, height: 48)
-                    NoImageView()
-                        .cornerRadius(4)
-                        .frame(width: 48, height: 48)
                 } else {
                     NoImageView()
                         .cornerRadius(4)
