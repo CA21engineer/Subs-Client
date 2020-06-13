@@ -8,20 +8,20 @@
 import SwiftUI
 
 public struct MySubscriptionCardView: View {
-    private let subscription: Subscription_Subscription
+    private let userSubscription: Subscription_UserSubscription
     private let monthCount: Int
     @State private var showsDetailModal = false
 
-    init(subscription: Subscription_Subscription, monthCount: Int) {
-        self.subscription = subscription
+    init(userSubscription: Subscription_UserSubscription, monthCount: Int) {
+        self.userSubscription = userSubscription
         self.monthCount = monthCount
     }
 
     public var body: some View {
         VStack {
             HStack(spacing: 16) {
-                if subscription.url != nil {
-                    ImageView(image: .init(url: subscription.url!))
+                if userSubscription.subscription.url != nil {
+                    ImageView(image: .init(url: userSubscription.subscription.url!))
                         .cornerRadius(4)
                         .frame(width: 48, height: 48)
                 } else {
@@ -31,14 +31,14 @@ public struct MySubscriptionCardView: View {
                 }
                 VStack(spacing: 4) {
                     HStack {
-                        Text(subscription.serviceName)
+                        Text(userSubscription.subscription.serviceName)
                             .fontWeight(.semibold)
                             .font(.system(size: 18))
                             .lineLimit(0)
                         Spacer()
                     }
                     HStack {
-                        Text(subscription.serviceType.title)
+                        Text(userSubscription.subscription.serviceType.title)
                             .foregroundColor(.gray)
                             .fontWeight(.regular)
                             .font(.system(size: 14))
@@ -60,7 +60,7 @@ public struct MySubscriptionCardView: View {
                 content: {
                     SubscriptionDetailView(
                         store: .init(
-                            initialState: .init(subscription: self.subscription),
+                            initialState: .init(userSubscription: self.userSubscription),
                             reducer: SubscriptionDetail.reducer,
                             environment: SubscriptionDetail.Environment(
                                 firebaseRepository: AppEnvironment.shared.firebaseRepository,
@@ -75,8 +75,8 @@ public struct MySubscriptionCardView: View {
     }
 
     private func calculatePrice() -> Int {
-        let cycle = subscription.cycle != 0 ? subscription.cycle : 1
-        return Int(Int32(monthCount) * subscription.price / cycle)
+        let cycle = userSubscription.subscription.cycle != 0 ? userSubscription.subscription.cycle : 1
+        return Int(Int32(monthCount) * userSubscription.subscription.price / cycle)
     }
 }
 
@@ -85,7 +85,10 @@ public struct MySubscriptionCardView: View {
     struct MySubscriptionCardView_Previews: PreviewProvider {
         static var previews: some View {
             MySubscriptionCardView(
-                subscription: Subscription_Subscription(),
+                userSubscription: .with {
+                    $0.userSubscriptionID = "1"
+                    $0.subscription = .init()
+                },
                 monthCount: 1
             )
         }

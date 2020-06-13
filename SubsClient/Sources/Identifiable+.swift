@@ -7,6 +7,12 @@
 
 import ComposableArchitecture
 
+extension Subscription_UserSubscription: Identifiable {
+    public var id: String {
+        userSubscriptionID
+    }
+}
+
 extension Subscription_Subscription: Identifiable {
     public var id: String {
         subscriptionID

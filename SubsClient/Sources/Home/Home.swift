@@ -37,17 +37,17 @@ struct Home {
             lhs.subscriptions == rhs.subscriptions
         }
 
-        var subscriptions: [Subscription_Subscription] = []
+        var subscriptions: [Subscription_UserSubscription] = []
     }
 
     enum Action {
         case fetchMySubscriptions
-        case subscriptionResponse(Result<[Subscription_Subscription], Error>)
+        case subscriptionResponse(Result<[Subscription_UserSubscription], Error>)
     }
 
     struct Environment {
         let firebaseRepository: FirebaseRepository
-        let mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
+        let mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_UserSubscription]>
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 }
