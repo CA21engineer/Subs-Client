@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 initialState: Home.State(),
                 reducer: Home.reducer,
                 environment: Home.Environment(
+                    firebaseRepository: AppEnvironment.shared.firebaseRepository,
                     mySubscriptionRepository: appEnvironment.mySubscriptionRepository,
                     mainQueue: appEnvironment.mainQueue
                 )

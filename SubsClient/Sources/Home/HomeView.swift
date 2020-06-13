@@ -92,6 +92,7 @@ struct HomeView: View {
             initialState: Home.State(),
             reducer: Home.reducer,
             environment: Home.Environment(
+                firebaseRepository: AppEnvironment.shared.firebaseRepository,
                 mySubscriptionRepository: AppEnvironment.shared.mySubscriptionRepository,
                 mainQueue: AppEnvironment.shared.mainQueue
             )

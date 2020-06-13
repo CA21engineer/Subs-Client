@@ -69,7 +69,7 @@ struct SubscriptionForm {
     struct ID: Hashable {}
 
     private static func isValidToSend(state: State) -> Bool {
-        !state.iconID.isEmpty
+        state.imageURL != nil
             && !state.serviceName.isEmpty
     }
 }
