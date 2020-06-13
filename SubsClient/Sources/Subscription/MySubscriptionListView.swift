@@ -44,7 +44,8 @@ struct MySubscriptionListView: View {
 
     private func calculateTotalCost() -> Int {
         let costs = subscriptions.map { subscription -> Int in
-            Int(Int32(self.tab.monthCount) * subscription.price / subscription.cycle)
+            let cycle = subscription.cycle != 0 ? subscription.cycle : 1
+            return Int(Int32(self.tab.monthCount) * subscription.price / cycle)
         }
         return costs.reduce(0, +)
     }

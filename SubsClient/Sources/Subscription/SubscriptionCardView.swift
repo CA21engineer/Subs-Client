@@ -20,6 +20,7 @@ struct SubscriptionCardView: View {
             HStack(spacing: 16) {
                 if subscription.url != nil {
                     ImageView(image: .init(url: subscription.url!))
+                        .cornerRadius(4)
                         .frame(width: 48, height: 48)
                 } else {
                     NoImageView()
@@ -36,7 +37,7 @@ struct SubscriptionCardView: View {
                         Spacer()
                     }
                     HStack {
-                        Text("カテゴリー名")
+                        Text(subscription.serviceType.title)
                             .foregroundColor(.gray)
                             .fontWeight(.regular)
                             .font(.system(size: 14))

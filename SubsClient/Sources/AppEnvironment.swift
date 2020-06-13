@@ -35,6 +35,7 @@ final class AppEnvironment {
         self.popularSubscriptionsRepository = popularSubscriptionsRepository
         self.recommendSubscriptionsRepository = recommendSubscriptionsRepository
         self.subscriptionRepository = subscriptionRepository
+        self.subscriptionsRepository = subscriptionsRepository
         self.mySubscriptionRepository = mySubscriptionRepository
         self.mainQueue = mainQueue
     }
