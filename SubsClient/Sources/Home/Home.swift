@@ -12,8 +12,11 @@ struct Home {
     static let reducer = Reducer<State, Action, Environment> { state, action, environment in
         switch action {
         case .fetchMySubscriptions:
-            return environment.mySubscriptionRepository
-                .fetchMySubscriptions(userID: "")
+            return environment.firebaseRepository.instanceID
+                .flatMap {
+                    environment.mySubscriptionRepository
+                        .fetchMySubscriptions(userID: $0)
+                }
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
                 .map(Action.subscriptionResponse)
@@ -25,7 +28,7 @@ struct Home {
             state.subscriptions = []
             return .none
         }
-    }.debug()
+    }
 
     struct ID: Hashable {}
 
@@ -43,6 +46,7 @@ struct Home {
     }
 
     struct Environment {
+        let firebaseRepository: FirebaseRepository
         let mySubscriptionRepository: MySubscriptionsRepository
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }
