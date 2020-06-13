@@ -46,7 +46,7 @@ struct HomeView: View {
                         }
                     } else {
                         MySubscriptionListView(
-                            subscriptions: viewStore.subscriptions,
+                            userSubscriptions: viewStore.subscriptions,
                             tab: HomeTab(rawValue: self.selectedTabIndex)!
                         )
                     }

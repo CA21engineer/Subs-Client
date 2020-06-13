@@ -17,7 +17,7 @@ final class AppEnvironment {
     let recommendSubscriptionsRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
     let subscriptionRepository: SubscriptionRepository
     let subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
-    let mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
+    let mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_UserSubscription]>
     let mainQueue: AnySchedulerOf<DispatchQueue>
 
     init(
@@ -26,7 +26,7 @@ final class AppEnvironment {
         popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
         recommendSubscriptionsRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>,
         subscriptionRepository: SubscriptionRepository,
-        mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>,
+        mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_UserSubscription]>,
         subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
         mainQueue: AnySchedulerOf<DispatchQueue>
     ) {
@@ -58,7 +58,7 @@ final class AppEnvironment {
                     popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(PopularSubscriptionsRepositoryImpl(client: client)),
                     recommendSubscriptionsRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>(RecommendSubscriptionsRepositoryImpl(client: client)),
                     subscriptionRepository: SubscriptionRepositoryImpl(client: client),
-                    mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>(MySubscriptionsRepositoryImpl(client: client)),
+                    mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_UserSubscription]>(MySubscriptionsRepositoryImpl(client: client)),
                     subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(SubscriptionsRepositoryImpl(client: client)),
                     mainQueue: DispatchQueue.main.eraseToAnyScheduler()
                 )

@@ -13,9 +13,9 @@ struct SubscriptionDetail {
         var id: String
         var formState: SubscriptionForm.State
 
-        init(subscription: Subscription_Subscription) {
-            id = subscription.subscriptionID
-            formState = .init(subscription: subscription)
+        init(userSubscription: Subscription_UserSubscription) {
+            id = userSubscription.userSubscriptionID
+            formState = .init(subscription: userSubscription.subscription)
         }
     }
 
@@ -31,7 +31,7 @@ struct SubscriptionDetail {
         SubscriptionForm.reducer.pullback(
             state: \.formState,
             action: /Action.formAction,
-            environment: {_ in
+            environment: { _ in
                 SubscriptionForm.Environment()
             }
         ),
@@ -41,19 +41,20 @@ struct SubscriptionDetail {
                 return .none
             case .update:
                 return environment.firebaseRepository.instanceID
-                    .flatMap({ [state] in
+                    .flatMap { [state] in
                         environment.subscriptionRepository
-                        .updateSubscription(
-                            userSubscriptionID: state.id,
-                            userID: $0,
-                            iconID: state.formState.iconID,
-                            serviceName: state.formState.serviceName,
-                            price: Int32(state.formState.price),
-                            cycle: Int32(state.formState.cycle),
-                            // TODO set freeTrial
-                            freeTrial: 0,
-                            startedAt: state.formState.startedAt)
-                    })
+                            .updateSubscription(
+                                userSubscriptionID: state.id,
+                                userID: $0,
+                                iconID: state.formState.iconID,
+                                serviceName: state.formState.serviceName,
+                                price: Int32(state.formState.price),
+                                cycle: Int32(state.formState.cycle),
+                                // TODO: set freeTrial
+                                freeTrial: 0,
+                                startedAt: state.formState.startedAt
+                            )
+                    }
                     .receive(on: environment.mainQueue)
                     .catchToEffect()
                     .map(Action.updateResponse)
@@ -64,12 +65,13 @@ struct SubscriptionDetail {
                 assertionFailure(e.localizedDescription)
             case .unregister:
                 return environment.firebaseRepository.instanceID
-                    .flatMap({ [state] in
+                    .flatMap { [state] in
                         environment.subscriptionRepository
                             .unregisterSubscription(
                                 userID: $0,
-                                userSubscriptionID: state.id)
-                    })
+                                userSubscriptionID: state.id
+                            )
+                    }
                     .receive(on: environment.mainQueue)
                     .catchToEffect()
                     .map(Action.unregisterResponse)

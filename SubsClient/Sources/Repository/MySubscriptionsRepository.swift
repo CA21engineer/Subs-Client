@@ -8,11 +8,11 @@
 import ComposableArchitecture
 
 struct MySubscriptionsRepositoryImpl: MySubscriptionServiceRequestable {
-    typealias ResponseType = [Subscription_Subscription]
+    typealias ResponseType = [Subscription_UserSubscription]
 
     let client: Subscription_SubscriptionServiceClient
 
-    func fetch(userID: String) -> Effect<[Subscription_Subscription], Error> {
+    func fetch(userID: String) -> Effect<[Subscription_UserSubscription], Error> {
         let request = Subscription_GetMySubscriptionRequest.with {
             $0.userID = userID
         }
