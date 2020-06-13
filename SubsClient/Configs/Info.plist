@@ -2,6 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fmawa</string>
+		<string>spotify</string>
+		<string>youtubemusic</string>
+		<string>linemusic</string>
+		<string>amznmp3</string>
+		<string>youtube</string>
+		<string>abematv</string>
+		<string>aiv-jp</string>
+		<string>jp.co.cyber-z.openrec</string>
+		<string>fujitv-fodviewer</string>
+		<string>fb289618847852403</string>
+		<string>crossme</string>
+		<string>tinder</string>
+		<string>with</string>
+		<string>googledrive</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
