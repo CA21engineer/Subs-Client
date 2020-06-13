@@ -18,7 +18,7 @@ struct FirebaseRepositoryImpl: FirebaseRepository {
             InstanceID.instanceID().instanceID { (result, error) in
                 switch (result, error) {
                 case (.some(let result), .none):
-                    callback(.success(result.instanceID))
+                    callback(.success(result.token))
                 case (.none, .some(let e)):
                     callback(.failure(e))
                 case (.some, .some), (.none, .none):
