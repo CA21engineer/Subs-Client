@@ -7,16 +7,12 @@
 
 import ComposableArchitecture
 
-protocol MySubscriptionsRepository {
-    var client: Subscription_SubscriptionServiceClient { get }
+struct MySubscriptionsRepositoryImpl: MySubscriptionServiceRequestable {
+    typealias ResponseType = [Subscription_Subscription]
 
-    func fetchMySubscriptions(userID: String) -> Effect<[Subscription_Subscription], Error>
-}
-
-struct MySubscriptionsRepositoryImpl: MySubscriptionsRepository {
     let client: Subscription_SubscriptionServiceClient
 
-    func fetchMySubscriptions(userID: String) -> Effect<[Subscription_Subscription], Error> {
+    func fetch(userID: String) -> Effect<[Subscription_Subscription], Error> {
         let request = Subscription_GetMySubscriptionRequest.with {
             $0.userID = userID
         }

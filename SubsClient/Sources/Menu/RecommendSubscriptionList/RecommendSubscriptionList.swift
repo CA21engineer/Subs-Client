@@ -13,7 +13,7 @@ struct RecommendSubscriptionList {
         switch action {
         case .fetchRecommendSubscriptions:
             return environment.recommendSubscriptionsRepository
-                .fetch()
+                .fetch(userID: "")
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
                 .map(Action.recommendSubscriptionsResponse)
@@ -43,7 +43,7 @@ struct RecommendSubscriptionList {
     }
 
     struct Environment {
-        let recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
+        let recommendSubscriptionsRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 }

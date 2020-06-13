@@ -13,7 +13,7 @@ struct Home {
         switch action {
         case .fetchMySubscriptions:
             return environment.mySubscriptionRepository
-                .fetchMySubscriptions(userID: "")
+                .fetch(userID: "")
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
                 .map(Action.subscriptionResponse)
@@ -43,7 +43,7 @@ struct Home {
     }
 
     struct Environment {
-        let mySubscriptionRepository: MySubscriptionsRepository
+        let mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 }
