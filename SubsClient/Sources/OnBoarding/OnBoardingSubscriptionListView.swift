@@ -37,7 +37,10 @@ struct OnBoardingSubscriptionListView_Previews: PreviewProvider {
     private static let store = Store(
         initialState: OnBoarding.State(),
         reducer: OnBoarding.reducer,
-        environment: AppEnvironment.shared
+        environment: OnBoarding.Environment(
+            subscriptionsRepository: AppEnvironment.shared.subscriptionsRepository,
+            mainQueue: AppEnvironment.shared.mainQueue
+        )
     )
 
     static var previews: some View {

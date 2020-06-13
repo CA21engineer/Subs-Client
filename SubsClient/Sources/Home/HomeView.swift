@@ -17,6 +17,15 @@ struct HomeView: View {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 
+    private let onBoardingStore = Store(
+        initialState: OnBoarding.State(),
+        reducer: OnBoarding.reducer,
+        environment: OnBoarding.Environment(
+            subscriptionsRepository: AppEnvironment.shared.subscriptionsRepository,
+            mainQueue: AppEnvironment.shared.mainQueue
+        )
+    )
+
     var body: some View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
@@ -65,7 +74,7 @@ struct HomeView: View {
             .sheet(
                 isPresented: self.$showOnBoarding,
                 content: {
-                    OnBoardingView()
+                    OnBoardingView(store: self.onBoardingStore)
                 }
             )
             .onAppear {

@@ -11,11 +11,11 @@ import SwiftUI
 struct OnBoardingView: View {
     @Environment(\.presentationMode) private var presentationMode
 
-    private let store = Store<OnBoarding.State, OnBoarding.Action>(
-        initialState: OnBoarding.State(),
-        reducer: OnBoarding.reducer,
-        environment: AppEnvironment.shared
-    )
+    let store: Store<OnBoarding.State, OnBoarding.Action>
+
+    init(store: Store<OnBoarding.State, OnBoarding.Action>) {
+        self.store = store
+    }
 
     var body: some View {
         VStack {
@@ -54,7 +54,15 @@ struct OnBoardingView: View {
 }
 
 struct OnBoardingView_Previews: PreviewProvider {
+    private static let store = Store<OnBoarding.State, OnBoarding.Action>(
+        initialState: .init(),
+        reducer: OnBoarding.reducer,
+        environment: OnBoarding.Environment(
+            subscriptionsRepository: AppEnvironment.shared.subscriptionsRepository, mainQueue: AppEnvironment.shared.mainQueue
+        )
+    )
+
     static var previews: some View {
-        OnBoardingView()
+        OnBoardingView(store: store)
     }
 }

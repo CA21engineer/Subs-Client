@@ -16,6 +16,7 @@ final class AppEnvironment {
     let popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
     let recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
     let subscriptionRepository: SubscriptionRepository
+    let subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
     let mySubscriptionRepository: MySubscriptionsRepository
     let mainQueue: AnySchedulerOf<DispatchQueue>
 
@@ -26,6 +27,7 @@ final class AppEnvironment {
         recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
         subscriptionRepository: SubscriptionRepository,
         mySubscriptionRepository: MySubscriptionsRepository,
+        subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
         mainQueue: AnySchedulerOf<DispatchQueue>
     ) {
         self.firebaseRepository = firebaseRepository
@@ -33,6 +35,7 @@ final class AppEnvironment {
         self.popularSubscriptionsRepository = popularSubscriptionsRepository
         self.recommendSubscriptionsRepository = recommendSubscriptionsRepository
         self.subscriptionRepository = subscriptionRepository
+        self.subscriptionsRepository = subscriptionsRepository
         self.mySubscriptionRepository = mySubscriptionRepository
         self.mainQueue = mainQueue
     }
@@ -56,6 +59,7 @@ final class AppEnvironment {
                     recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(RecommendSubscriptionsRepositoryImpl(client: client)),
                     subscriptionRepository: SubscriptionRepositoryImpl(client: client),
                     mySubscriptionRepository: MySubscriptionsRepositoryImpl(client: client),
+                    subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(SubscriptionsRepositoryImpl(client: client)),
                     mainQueue: DispatchQueue.main.eraseToAnyScheduler()
                 )
             }()

@@ -75,7 +75,8 @@ public struct MySubscriptionCardView: View {
     }
 
     private func calculatePrice() -> Int {
-        Int(Int32(monthCount) * subscription.price / subscription.cycle)
+        let cycle = subscription.cycle != 0 ? subscription.cycle : 1
+        return Int(Int32(monthCount) * subscription.price / cycle)
     }
 }
 

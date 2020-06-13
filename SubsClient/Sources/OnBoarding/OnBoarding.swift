@@ -9,16 +9,15 @@ import ComposableArchitecture
 import Foundation
 
 struct OnBoarding {
-    static let reducer = Reducer<State, Action, AppEnvironment> { state, action, environment in
+    static let reducer = Reducer<State, Action, Environment> { state, action, environment in
         switch action {
         case .fetchSubscriptions:
-//            return environment.repository
-//                .fetchSubscriptions()
-//                .receive(on: environment.mainQueue)
-//                .catchToEffect()
-//                .map(Action.recommendSubscriptionsResponse)
-//                .cancellable(id: ID(), cancelInFlight: true)
-            return .init(value: .subscriptionsResponse(.success([])))
+            return environment.subscriptionsRepository
+                .fetch()
+                .receive(on: environment.mainQueue)
+                .catchToEffect()
+                .map(Action.subscriptionsResponse)
+                .cancellable(id: ID(), cancelInFlight: true)
         case let .subscriptionsResponse(.success(subscriptions)):
             state.subscriptions = subscriptions
             return .none
@@ -41,5 +40,10 @@ struct OnBoarding {
     enum Action {
         case fetchSubscriptions
         case subscriptionsResponse(Result<[Subscription_Subscription], Error>)
+    }
+
+    struct Environment {
+        let subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
+        let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 }
