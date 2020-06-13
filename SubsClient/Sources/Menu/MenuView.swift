@@ -67,6 +67,7 @@ struct MenuView: View {
                                     reducer: SubscriptionCreate.reducer,
                                     environment: SubscriptionCreate.Environment(
                                         subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
+                                        firebaseRepository: AppEnvironment.shared.firebaseRepository,
                                         mainQueue: AppEnvironment.shared.mainQueue
                                     )
                                 )

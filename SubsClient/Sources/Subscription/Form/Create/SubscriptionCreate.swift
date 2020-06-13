@@ -42,32 +42,36 @@ struct SubscriptionCreate {
                 return .none
             case .create:
                 if state.formState.isOriginal {
-                    return environment.subscriptionRepository
-                        .registerSubscription(
-                            // TODO: set userID
-                            userID: "",
-                            subscriptionID: state.formState.subscriptionID,
-                            price: Int32(state.formState.price),
-                            cycle: Int32(state.formState.cycle),
-                            // TODO: calculate freeTrial
-                            startedAt: state.formState.startedAt
-                        )
+                    return environment.firebaseRepository.instanceID
+                        .flatMap { [state] in
+                            environment.subscriptionRepository
+                                .registerSubscription(
+                                    userID: $0,
+                                    subscriptionID: state.formState.subscriptionID,
+                                    price: Int32(state.formState.price),
+                                    cycle: Int32(state.formState.cycle),
+                                    // TODO: calculate freeTrial
+                                    startedAt: state.formState.startedAt
+                                )
+                        }
                         .catchToEffect()
                         .map(Action.registerFinished)
                         .cancellable(id: ID(), cancelInFlight: true)
                 } else {
-                    return environment.subscriptionRepository
-                        .createSubscription(
-                            // TODO: set userID
-                            userID: "",
-                            serviceName: state.formState.serviceName,
-                            iconID: state.formState.iconID,
-                            price: Int32(state.formState.price),
-                            cycle: Int32(state.formState.cycle),
-                            // TODO: calculate freeTrial
-                            freeTrial: 0,
-                            startedAt: state.formState.startedAt
-                        )
+                    return environment.firebaseRepository.instanceID
+                        .flatMap { [state] in
+                            environment.subscriptionRepository
+                                .createSubscription(
+                                    userID: $0,
+                                    serviceName: state.formState.serviceName,
+                                    iconID: state.formState.iconID,
+                                    price: Int32(state.formState.price),
+                                    cycle: Int32(state.formState.cycle),
+                                    // TODO: calculate freeTrial
+                                    freeTrial: 0,
+                                    startedAt: state.formState.startedAt
+                                )
+                        }
                         .catchToEffect()
                         .map(Action.createFinished)
                         .cancellable(id: ID(), cancelInFlight: true)
@@ -92,6 +96,7 @@ struct SubscriptionCreate {
 
     struct Environment {
         let subscriptionRepository: SubscriptionRepository
+        let firebaseRepository: FirebaseRepository
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 
