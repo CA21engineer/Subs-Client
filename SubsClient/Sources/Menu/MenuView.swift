@@ -61,11 +61,11 @@ struct MenuView: View {
                     .sheet(
                         isPresented: self.$showModal,
                         content: {
-                            SubscriptionFormView(
+                            SubscriptionCreateView(
                                 store: .init(
                                     initialState: .init(),
-                                    reducer: SubscriptionForm.reducer,
-                                    environment: SubscriptionForm.Environment(
+                                    reducer: SubscriptionCreate.reducer,
+                                    environment: SubscriptionCreate.Environment(
                                         subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
                                         mainQueue: AppEnvironment.shared.mainQueue
                                     )
