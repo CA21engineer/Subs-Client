@@ -10,9 +10,11 @@ import SwiftUI
 public struct MySubscriptionCardView: View {
     private let subscription: Subscription_Subscription
     @State private var showsModal = false
+    private let monthCount: Int
 
-    init(subscription: Subscription_Subscription) {
+    init(subscription: Subscription_Subscription, monthCount: Int) {
         self.subscription = subscription
+        self.monthCount = monthCount
     }
 
     public var body: some View {
@@ -48,7 +50,7 @@ public struct MySubscriptionCardView: View {
                     }
                 }
                 Spacer()
-                Text("¥\(subscription.price)")
+                Text("¥\(calculatePrice())")
                     .fontWeight(.semibold)
                     .lineLimit(0)
             }
@@ -73,13 +75,20 @@ public struct MySubscriptionCardView: View {
             )
         }
     }
+
+    private func calculatePrice() -> Int {
+        Int(Int32(monthCount) * subscription.price / subscription.cycle)
+    }
 }
 
 #if DEBUG
 
     struct MySubscriptionCardView_Previews: PreviewProvider {
         static var previews: some View {
-            MySubscriptionCardView(subscription: Subscription_Subscription())
+            MySubscriptionCardView(
+                subscription: Subscription_Subscription(),
+                monthCount: 1
+            )
         }
     }
 
