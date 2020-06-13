@@ -44,4 +44,3 @@ struct Icons {
 
     struct ID: Hashable {}
 }
-
