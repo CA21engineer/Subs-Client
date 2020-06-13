@@ -9,10 +9,10 @@ import ComposableArchitecture
 import SwiftUI
 
 struct SubscriptionCreateView: View {
-    private let store: Store<SubscriptionCreateForm.State, SubscriptionCreateForm.Action>
+    private let store: Store<SubscriptionCreate.State, SubscriptionCreate.Action>
     @State private var showsIconsModal: Bool = false
 
-    init(store: Store<SubscriptionCreateForm.State, SubscriptionCreateForm.Action>) {
+    init(store: Store<SubscriptionCreate.State, SubscriptionCreate.Action>) {
         self.store = store
     }
 
@@ -24,7 +24,7 @@ struct SubscriptionCreateView: View {
                         store: self.store.scope(
                             state: \.formState,
                             action: {
-                                SubscriptionCreateForm.Action.formAction($0)
+                                SubscriptionCreate.Action.formAction($0)
                             }
                         )
                     )
@@ -56,8 +56,8 @@ struct SubscriptionCreateFormView_Previews: PreviewProvider {
                             subscription.iconUri = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F7%2F75%2FNetflix_icon.svg%2F1200px-Netflix_icon.svg.png&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ANetflix_icon.svg&tbnid=FPQrcmY85Qu9sM&vet=12ahUKEwjOyNPj5fvpAhUWzYsBHZSXDEkQMygBegUIARClAQ..i&docid=bpNS0lmfVwcz2M&w=1200&h=1200&q=netflix%20icon&ved=2ahUKEwjOyNPj5fvpAhUWzYsBHZSXDEkQMygBegUIARClAQ"
                         }
                     ),
-                    reducer: SubscriptionCreateForm.reducer.debug(),
-                    environment: SubscriptionCreateForm.Environment(
+                    reducer: SubscriptionCreate.reducer.debug(),
+                    environment: SubscriptionCreate.Environment(
                         subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
                         mainQueue: AppEnvironment.shared.mainQueue
                     )
