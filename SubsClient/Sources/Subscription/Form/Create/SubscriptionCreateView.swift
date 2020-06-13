@@ -8,7 +8,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct SubscriptionCreateFormView: View {
+struct SubscriptionCreateView: View {
     private let store: Store<SubscriptionCreateForm.State, SubscriptionCreateForm.Action>
     @State private var showsIconsModal: Bool = false
 
@@ -47,7 +47,7 @@ struct SubscriptionCreateFormView: View {
 struct SubscriptionCreateFormView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SubscriptionCreateFormView(
+            SubscriptionCreateView(
                 store: .init(
                     initialState: .init(
                         subscription: Subscription_Subscription.with { subscription in

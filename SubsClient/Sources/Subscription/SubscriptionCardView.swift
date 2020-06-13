@@ -56,11 +56,11 @@ struct SubscriptionCardView: View {
                         .sheet(
                             isPresented: self.$showsCreateModal,
                             content: {
-                                SubscriptionCreateFormView(
+                                SubscriptionCreateView(
                                     store: .init(
                                         initialState: .init(subscription: self.subscription),
-                                        reducer: SubscriptionCreateForm.reducer,
-                                        environment: SubscriptionCreateForm.Environment(
+                                        reducer: SubscriptionCreate.reducer,
+                                        environment: SubscriptionCreate.Environment(
                                             subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
                                             mainQueue: AppEnvironment.shared.mainQueue
                                         )

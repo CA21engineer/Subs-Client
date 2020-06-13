@@ -8,7 +8,7 @@
 import ComposableArchitecture
 import Foundation
 
-struct SubscriptionCreateForm {
+struct SubscriptionCreate {
     struct State: Equatable {
         var formState: SubscriptionForm.State
 
