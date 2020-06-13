@@ -38,7 +38,7 @@ public struct MySubscriptionCardView: View {
                         Spacer()
                     }
                     HStack {
-                        Text("カテゴリー名")
+                        Text(subscription.serviceType.title)
                             .foregroundColor(.gray)
                             .fontWeight(.regular)
                             .font(.system(size: 14))
