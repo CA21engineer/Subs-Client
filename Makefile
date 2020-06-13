@@ -10,7 +10,7 @@ xcodegen:
 	./scripts/xcodegen.sh
 
 export PATH += :$(PWD)/bin
-GRPC_OUT:=./SubsClient/Sources/Generated
+GRPC_OUT:=./Core/Sources/Generated
 .PHONY: proto
 proto:
 	mkdir -p $(GRPC_OUT)
@@ -22,4 +22,5 @@ proto:
 
 .PHONY: swiftgen
 swiftgen:
+	mkdir -p SubsClient/Sources/Generated
 	mint run swiftgen swiftgen

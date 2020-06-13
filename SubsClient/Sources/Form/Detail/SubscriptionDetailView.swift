@@ -1,20 +1,16 @@
 //
-//  SubscriptionCreateFormView.swift
+//  SubscriptionDetailView.swift
 //  SubsClient
 //
 //  Created by 伊藤凌也 on 2020/06/13.
 //
 
 import ComposableArchitecture
+import Core
 import SwiftUI
 
-struct SubscriptionCreateView: View {
-    private let store: Store<SubscriptionCreate.State, SubscriptionCreate.Action>
-    @State private var showsIconsModal: Bool = false
-
-    init(store: Store<SubscriptionCreate.State, SubscriptionCreate.Action>) {
-        self.store = store
-    }
+struct SubscriptionDetailView: View {
+    let store: Store<SubscriptionDetail.State, SubscriptionDetail.Action>
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -24,18 +20,25 @@ struct SubscriptionCreateView: View {
                         store: self.store.scope(
                             state: \.formState,
                             action: {
-                                SubscriptionCreate.Action.formAction($0)
+                                SubscriptionDetail.Action.formAction($0)
                             }
                         )
                     )
+                    Button(action: {
+                        viewStore.send(.unregister)
+                    }) {
+                        Text("登録解除する")
+                            .foregroundColor(Color.red)
+                            .underline()
+                    }
                     Spacer()
                 }
-                .navigationBarTitle("登録フォーム", displayMode: .inline)
+                .navigationBarTitle("詳細", displayMode: .inline)
                 .navigationBarItems(
                     trailing: Button(action: {
-                        viewStore.send(.create)
+                        viewStore.send(.update)
                     }) {
-                        Text("登録")
+                        Text("更新")
                     }
                     .disabled(!viewStore.formState.canSend)
                 )
@@ -44,28 +47,26 @@ struct SubscriptionCreateView: View {
     }
 }
 
-struct SubscriptionCreateFormView_Previews: PreviewProvider {
+struct SubscriptionDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            SubscriptionCreateView(
-                store: .init(
-                    initialState: .init(
-                        subscription: Subscription_Subscription.with { subscription in
+        SubscriptionDetailView(
+            store: .init(
+                initialState: .init(
+                    userSubscription: Subscription_UserSubscription.with {
+                        $0.subscription = Subscription_Subscription.with { subscription in
                             subscription.price = 800
                             subscription.serviceName = "Netflix"
                             subscription.iconUri = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F7%2F75%2FNetflix_icon.svg%2F1200px-Netflix_icon.svg.png&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ANetflix_icon.svg&tbnid=FPQrcmY85Qu9sM&vet=12ahUKEwjOyNPj5fvpAhUWzYsBHZSXDEkQMygBegUIARClAQ..i&docid=bpNS0lmfVwcz2M&w=1200&h=1200&q=netflix%20icon&ved=2ahUKEwjOyNPj5fvpAhUWzYsBHZSXDEkQMygBegUIARClAQ"
                         }
-                    ),
-                    reducer: SubscriptionCreate.reducer.debug(),
-                    environment: SubscriptionCreate.Environment(
-                        subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
-                        firebaseRepository: AppEnvironment.shared.firebaseRepository,
-                        mainQueue: AppEnvironment.shared.mainQueue
-                    )
+                    }
+                ),
+                reducer: SubscriptionDetail.reducer,
+                environment: SubscriptionDetail.Environment(
+                    firebaseRepository: AppEnvironment.shared.firebaseRepository,
+                    subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
+                    mainQueue: AppEnvironment.shared.mainQueue
                 )
             )
-            .previewLayout(.sizeThatFits)
-            .environment(\.colorScheme, .dark)
-        }
+        )
     }
 }

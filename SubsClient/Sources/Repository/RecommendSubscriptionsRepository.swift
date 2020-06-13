@@ -6,13 +6,14 @@
 //
 
 import ComposableArchitecture
+import Core
 
-struct RecommendSubscriptionsRepositoryImpl: MySubscriptionServiceRequestable {
-    typealias ResponseType = [Subscription_Subscription]
+public struct RecommendSubscriptionsRepositoryImpl: MySubscriptionServiceRequestable {
+    public typealias ResponseType = [Subscription_Subscription]
 
-    let client: Subscription_SubscriptionServiceClient
+    public let client: Subscription_SubscriptionServiceClient
 
-    func fetch(userID: String) -> Effect<[Subscription_Subscription], Error> {
+    public func fetch(userID: String) -> Effect<[Subscription_Subscription], Error> {
         let request = Subscription_GetRecommendSubscriptionsRequest.with {
             $0.userID = userID
         }

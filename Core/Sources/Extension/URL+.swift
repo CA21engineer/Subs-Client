@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Subscription_IconImage {
+public extension Subscription_IconImage {
     var url: URL? {
         URL(string: iconUri)
     }
@@ -15,7 +15,7 @@ extension Subscription_IconImage {
 
 extension Subscription_IconImage: Equatable {}
 
-extension Subscription_Subscription {
+public extension Subscription_Subscription {
     var url: URL? {
         URL(string: iconUri)
     }

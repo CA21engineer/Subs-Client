@@ -10,7 +10,7 @@ import Foundation
 import GRPC
 import NIO
 
-protocol MySubscriptionServiceRequestable {
+public protocol MySubscriptionServiceRequestable {
     associatedtype ResponseType
 
     var client: Subscription_SubscriptionServiceClient { get }
@@ -18,8 +18,8 @@ protocol MySubscriptionServiceRequestable {
     func fetch(userID: String) -> Effect<ResponseType, Error>
 }
 
-class AnyMySubscriptionServiceRequestable<ResponseType>: MySubscriptionServiceRequestable {
-    let client: Subscription_SubscriptionServiceClient = {
+public struct AnyMySubscriptionServiceRequestable<ResponseType>: MySubscriptionServiceRequestable {
+    public let client: Subscription_SubscriptionServiceClient = {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         let configuration = ClientConnection.Configuration(
             target: .hostAndPort("35.221.100.76", 18080),
@@ -29,7 +29,7 @@ class AnyMySubscriptionServiceRequestable<ResponseType>: MySubscriptionServiceRe
         return Subscription_SubscriptionServiceClient(channel: connection)
     }()
 
-    init<Inner: MySubscriptionServiceRequestable>(_ inner: Inner) where ResponseType == Inner.ResponseType {
+    public init<Inner: MySubscriptionServiceRequestable>(_ inner: Inner) where ResponseType == Inner.ResponseType {
         _request = inner.fetch
     }
 

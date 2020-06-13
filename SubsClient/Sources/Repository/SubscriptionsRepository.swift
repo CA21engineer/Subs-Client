@@ -6,14 +6,15 @@
 //
 
 import ComposableArchitecture
+import Core
 import Foundation
 
-struct SubscriptionsRepositoryImpl: SubscriptionServiceRequestable {
-    typealias ResponseType = [Subscription_Subscription]
+public struct SubscriptionsRepositoryImpl: SubscriptionServiceRequestable {
+    public typealias ResponseType = [Subscription_Subscription]
 
-    let client: Subscription_SubscriptionServiceClient
+    public let client: Subscription_SubscriptionServiceClient
 
-    func fetch() -> Effect<ResponseType, Error> {
+    public func fetch() -> Effect<ResponseType, Error> {
         client.getSubscriptions(.init()).response
             .map { $0.subscriptions }
             .receiveEffectWhenComplete()

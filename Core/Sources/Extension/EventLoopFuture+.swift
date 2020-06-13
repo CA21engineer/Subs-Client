@@ -9,7 +9,7 @@ import ComposableArchitecture
 import Foundation
 import NIO
 
-extension EventLoopFuture {
+public extension EventLoopFuture {
     func receiveEffectWhenComplete() -> Effect<Value, Error> {
         Effect<Value, Error>.future { callback in
             self.whenComplete { result in

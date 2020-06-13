@@ -6,20 +6,17 @@
 //
 
 import ComposableArchitecture
+import Core
 import Firebase
 
-protocol FirebaseRepository {
-    var instanceID: Effect<String, Error> { get }
-}
-
-struct FirebaseRepositoryImpl: FirebaseRepository {
-    var instanceID: Effect<String, Error> {
-        Effect<String, Error>.future { (callback) in
-            InstanceID.instanceID().instanceID { (result, error) in
+public struct FirebaseRepositoryImpl: FirebaseRepository {
+    public var instanceID: Effect<String, Error> {
+        Effect<String, Error>.future { callback in
+            InstanceID.instanceID().instanceID { result, error in
                 switch (result, error) {
-                case (.some(let result), .none):
+                case let (.some(result), .none):
                     callback(.success(result.token))
-                case (.none, .some(let e)):
+                case let (.none, .some(e)):
                     callback(.failure(e))
                 case (.some, .some), (.none, .none):
                     assertionFailure()

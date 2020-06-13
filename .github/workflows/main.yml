@@ -38,7 +38,7 @@ jobs:
     - name: make proto
       run: make proto
     - name: run swiftgen
-      run: mint run swiftgen swiftgen
+      run: make swiftgen
     - name: make xcodegen
       run: make xcodegen
     - run: xcodebuild

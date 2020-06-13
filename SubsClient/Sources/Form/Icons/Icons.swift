@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import Core
 import Foundation
 
 struct Icons {
@@ -44,4 +45,3 @@ struct Icons {
 
     struct ID: Hashable {}
 }
-
