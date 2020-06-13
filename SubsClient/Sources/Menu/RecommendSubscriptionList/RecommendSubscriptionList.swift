@@ -12,8 +12,11 @@ struct RecommendSubscriptionList {
     static let reducer = Reducer<State, Action, Environment> { state, action, environment in
         switch action {
         case .fetchRecommendSubscriptions:
-            return environment.recommendSubscriptionsRepository
-                .fetch()
+            return environment.firebaseRepository.instanceID
+                .flatMap {
+                    environment.recommendSubscriptionsRepository
+                        .fetch(userID: $0)
+                }
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
                 .map(Action.recommendSubscriptionsResponse)
@@ -43,7 +46,8 @@ struct RecommendSubscriptionList {
     }
 
     struct Environment {
-        let recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
+        let firebaseRepository: FirebaseRepository
+        let recommendSubscriptionsRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 }

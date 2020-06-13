@@ -38,6 +38,7 @@ struct RecommendSubscriptionListView_Previews: PreviewProvider {
         initialState: RecommendSubscriptionList.State(),
         reducer: RecommendSubscriptionList.reducer,
         environment: RecommendSubscriptionList.Environment(
+            firebaseRepository: AppEnvironment.shared.firebaseRepository,
             recommendSubscriptionsRepository: AppEnvironment.shared.recommendSubscriptionsRepository,
             mainQueue: AppEnvironment.shared.mainQueue
         )

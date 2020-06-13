@@ -15,7 +15,7 @@ struct Home {
             return environment.firebaseRepository.instanceID
                 .flatMap {
                     environment.mySubscriptionRepository
-                        .fetchMySubscriptions(userID: $0)
+                        .fetch(userID: $0)
                 }
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
@@ -47,7 +47,7 @@ struct Home {
 
     struct Environment {
         let firebaseRepository: FirebaseRepository
-        let mySubscriptionRepository: MySubscriptionsRepository
+        let mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }
 }

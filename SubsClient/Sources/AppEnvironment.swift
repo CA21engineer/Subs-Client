@@ -14,19 +14,19 @@ final class AppEnvironment {
     let firebaseRepository: FirebaseRepository
     let iconImageRepository: AnySubscriptionServiceRequestable<[Subscription_IconImage]>
     let popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
-    let recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
+    let recommendSubscriptionsRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
     let subscriptionRepository: SubscriptionRepository
     let subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>
-    let mySubscriptionRepository: MySubscriptionsRepository
+    let mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>
     let mainQueue: AnySchedulerOf<DispatchQueue>
 
     init(
         firebaseRepository: FirebaseRepository,
         iconImageRepository: AnySubscriptionServiceRequestable<[Subscription_IconImage]>,
         popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
-        recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
+        recommendSubscriptionsRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>,
         subscriptionRepository: SubscriptionRepository,
-        mySubscriptionRepository: MySubscriptionsRepository,
+        mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>,
         subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>,
         mainQueue: AnySchedulerOf<DispatchQueue>
     ) {
@@ -56,9 +56,9 @@ final class AppEnvironment {
                     firebaseRepository: FirebaseRepositoryImpl(),
                     iconImageRepository: AnySubscriptionServiceRequestable<[Subscription_IconImage]>(IconImageRepositoryImpl(client: client)),
                     popularSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(PopularSubscriptionsRepositoryImpl(client: client)),
-                    recommendSubscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(RecommendSubscriptionsRepositoryImpl(client: client)),
+                    recommendSubscriptionsRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>(RecommendSubscriptionsRepositoryImpl(client: client)),
                     subscriptionRepository: SubscriptionRepositoryImpl(client: client),
-                    mySubscriptionRepository: MySubscriptionsRepositoryImpl(client: client),
+                    mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_Subscription]>(MySubscriptionsRepositoryImpl(client: client)),
                     subscriptionsRepository: AnySubscriptionServiceRequestable<[Subscription_Subscription]>(SubscriptionsRepositoryImpl(client: client)),
                     mainQueue: DispatchQueue.main.eraseToAnyScheduler()
                 )

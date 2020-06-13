@@ -1,23 +1,24 @@
 //
-//  ListRequestable.swift
+//  MySubscriptionServiceRequestable.swift
 //  SubsClient
 //
-//  Created by 長田卓馬 on 2020/06/11.
+//  Created by 長田卓馬 on 2020/06/13.
 //
 
 import ComposableArchitecture
+import Foundation
 import GRPC
 import NIO
 
-protocol SubscriptionServiceRequestable {
+protocol MySubscriptionServiceRequestable {
     associatedtype ResponseType
 
     var client: Subscription_SubscriptionServiceClient { get }
 
-    func fetch() -> Effect<ResponseType, Error>
+    func fetch(userID: String) -> Effect<ResponseType, Error>
 }
 
-class AnySubscriptionServiceRequestable<ResponseType>: SubscriptionServiceRequestable {
+class AnyMySubscriptionServiceRequestable<ResponseType>: MySubscriptionServiceRequestable {
     let client: Subscription_SubscriptionServiceClient = {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         let configuration = ClientConnection.Configuration(
@@ -28,13 +29,13 @@ class AnySubscriptionServiceRequestable<ResponseType>: SubscriptionServiceReques
         return Subscription_SubscriptionServiceClient(channel: connection)
     }()
 
-    init<Inner: SubscriptionServiceRequestable>(_ inner: Inner) where ResponseType == Inner.ResponseType {
+    init<Inner: MySubscriptionServiceRequestable>(_ inner: Inner) where ResponseType == Inner.ResponseType {
         _request = inner.fetch
     }
 
-    private let _request: () -> Effect<ResponseType, Error>
+    private let _request: (_ userID: String) -> Effect<ResponseType, Error>
 
-    public func fetch() -> Effect<ResponseType, Error> {
-        _request()
+    public func fetch(userID: String) -> Effect<ResponseType, Error> {
+        _request(userID)
     }
 }
