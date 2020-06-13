@@ -6,47 +6,13 @@
 //
 
 import ComposableArchitecture
+import Core
 import GRPC
 
-protocol SubscriptionRepository {
-    var client: Subscription_SubscriptionServiceClient { get }
+public struct SubscriptionRepositoryImpl: SubscriptionRepository {
+    public let client: Subscription_SubscriptionServiceClient
 
-    func createSubscription(
-        userID: String,
-        serviceName: String,
-        iconID: String,
-        price: Int32,
-        cycle: Int32,
-        freeTrial: Int32,
-        startedAt: Date
-    ) -> Effect<Subscription_CreateSubscriptionResponse, Error>
-    func registerSubscription(
-        userID: String,
-        subscriptionID: String,
-        price: Int32,
-        cycle: Int32,
-        startedAt: Date
-    ) -> Effect<Subscription_RegisterSubscriptionResponse, Error>
-    func updateSubscription(
-        userSubscriptionID: String,
-        userID: String,
-        iconID: String,
-        serviceName: String,
-        price: Int32,
-        cycle: Int32,
-        freeTrial: Int32,
-        startedAt: Date
-    ) -> Effect<Subscription_UpdateSubscriptionResponse, Error>
-    func unregisterSubscription(
-        userID: String,
-        userSubscriptionID: String
-    ) -> Effect<Subscription_UnregisterSubscriptionResponse, Error>
-}
-
-struct SubscriptionRepositoryImpl: SubscriptionRepository {
-    let client: Subscription_SubscriptionServiceClient
-
-    func createSubscription(
+    public func createSubscription(
         userID: String,
         serviceName: String,
         iconID: String,
@@ -68,7 +34,7 @@ struct SubscriptionRepositoryImpl: SubscriptionRepository {
             .receiveEffectWhenComplete()
     }
 
-    func registerSubscription(
+    public func registerSubscription(
         userID: String,
         subscriptionID: String,
         price: Int32,
@@ -86,7 +52,7 @@ struct SubscriptionRepositoryImpl: SubscriptionRepository {
             .receiveEffectWhenComplete()
     }
 
-    func updateSubscription(
+    public func updateSubscription(
         userSubscriptionID: String,
         userID: String,
         iconID: String,
@@ -110,7 +76,7 @@ struct SubscriptionRepositoryImpl: SubscriptionRepository {
             .receiveEffectWhenComplete()
     }
 
-    func unregisterSubscription(
+    public func unregisterSubscription(
         userID: String,
         userSubscriptionID: String
     ) -> Effect<Subscription_UnregisterSubscriptionResponse, Error> {

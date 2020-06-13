@@ -4,9 +4,12 @@ use_frameworks!
 
 inhibit_all_warnings!
 
-target 'SubsClient' do
-  pod 'Firebase/Core'
-  pod 'Firebase/Messaging'
-  pod 'gRPC-Swift', '1.0.0-alpha.12'
+target 'Core' do
+  inherit! :search_paths
+ 
+  target 'SubsClient' do
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
+  end
 end
 

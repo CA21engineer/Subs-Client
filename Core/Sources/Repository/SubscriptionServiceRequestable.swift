@@ -9,7 +9,7 @@ import ComposableArchitecture
 import GRPC
 import NIO
 
-protocol SubscriptionServiceRequestable {
+public protocol SubscriptionServiceRequestable {
     associatedtype ResponseType
 
     var client: Subscription_SubscriptionServiceClient { get }
@@ -17,8 +17,8 @@ protocol SubscriptionServiceRequestable {
     func fetch() -> Effect<ResponseType, Error>
 }
 
-class AnySubscriptionServiceRequestable<ResponseType>: SubscriptionServiceRequestable {
-    let client: Subscription_SubscriptionServiceClient = {
+public struct AnySubscriptionServiceRequestable<ResponseType>: SubscriptionServiceRequestable {
+    public let client: Subscription_SubscriptionServiceClient = {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         let configuration = ClientConnection.Configuration(
             target: .hostAndPort("35.221.100.76", 18080),
@@ -28,7 +28,7 @@ class AnySubscriptionServiceRequestable<ResponseType>: SubscriptionServiceReques
         return Subscription_SubscriptionServiceClient(channel: connection)
     }()
 
-    init<Inner: SubscriptionServiceRequestable>(_ inner: Inner) where ResponseType == Inner.ResponseType {
+    public init<Inner: SubscriptionServiceRequestable>(_ inner: Inner) where ResponseType == Inner.ResponseType {
         _request = inner.fetch
     }
 

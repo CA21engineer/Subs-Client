@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Subscription_ServiceType {
+public extension Subscription_ServiceType {
     var title: String {
         switch self {
         case .notFound:

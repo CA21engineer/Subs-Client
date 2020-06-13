@@ -6,14 +6,11 @@
 //
 
 import ComposableArchitecture
+import Core
 import Firebase
 
-protocol FirebaseRepository {
-    var instanceID: Effect<String, Error> { get }
-}
-
-struct FirebaseRepositoryImpl: FirebaseRepository {
-    var instanceID: Effect<String, Error> {
+public struct FirebaseRepositoryImpl: FirebaseRepository {
+    public var instanceID: Effect<String, Error> {
         Effect<String, Error>.future { callback in
             InstanceID.instanceID().instanceID { result, error in
                 switch (result, error) {

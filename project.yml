@@ -1,50 +1,59 @@
 name: SubsClient
 
 packages:
-    ComposableArchitecture:
-      url: https://github.com/pointfreeco/swift-composable-architecture
-      from: 0.3.0
-    FetchImage:
-      url: https://github.com/kean/FetchImage
-      from: 0.2.1
-    Grid:
-      url: https://github.com/spacenation/swiftui-grid
-      from: 1.0.4
+  GRPC:
+    url: https://github.com/grpc/grpc-swift
+    from: 1.0.0-alpha.12
+  ComposableArchitecture:
+    url: https://github.com/pointfreeco/swift-composable-architecture
+    from: 0.3.0
+  FetchImage:
+    url: https://github.com/kean/FetchImage
+    from: 0.2.1
+  Grid:
+    url: https://github.com/spacenation/swiftui-grid
+    from: 1.0.4
 
 targetTemplates:
-    Framework:
-      platform: iOS
-      type: framework
-      deploymentTarget: "13.0"
-      sources:
-        - path: ${target_name}
-      settings:
-        PRODUCT_BUNDLE_IDENTIFIER: "jp.ca21engineer.SubsClient.${target_name}"
-    UnitTest:
-      type: bundle.unit-test
-      platform: iOS
-      sources:
-        - path: ${target_name}
-      dependencies:
-        - target: ${target_name}
-        - target: SubsClient
+  Framework:
+    platform: iOS
+    type: framework
+    deploymentTarget: "13.0"
+    sources:
+      - path: ${target_name}
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "jp.ca21engineer.SubsClient.${target_name}"
+  UnitTest:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: ${target_name}
+    dependencies:
+      - target: ${target_name}
+      - target: SubsClient
 
 targets:
-    SubsClient:
-        type: application
-        platform: iOS
-        deploymentTarget: "13.0"
-        sources: [SubsClient]
-        preBuildScripts:
-            - path: scripts/lint.sh
-              name: "Run Lint"
-        postBuildScripts:
-            - path: scripts/format.sh
-              name: "Run Format"
-        settings:
-            PRODUCT_BUNDLE_IDENTIFIER: jp.ca21engineer.SubsClient
-            CODE_SIGN_ENTITLEMENTS: SubsClient/SubsClient.entitlements
-        dependencies:
-            - package: ComposableArchitecture
-            - package: FetchImage
-            - package: Grid
+  Core:
+    templates: 
+      - Framework
+    dependencies:
+      - package: ComposableArchitecture
+      - package: GRPC
+  SubsClient:
+    type: application
+    platform: iOS
+    deploymentTarget: "13.0"
+    sources: [SubsClient]
+    preBuildScripts:
+      - path: scripts/lint.sh
+        name: "Run Lint"
+    postBuildScripts:
+      - path: scripts/format.sh
+        name: "Run Format"
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.ca21engineer.SubsClient
+      CODE_SIGN_ENTITLEMENTS: SubsClient/SubsClient.entitlements
+    dependencies:
+      - package: FetchImage
+      - package: Grid
+      - target: Core
