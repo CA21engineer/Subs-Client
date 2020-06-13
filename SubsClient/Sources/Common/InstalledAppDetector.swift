@@ -28,7 +28,7 @@ enum InstalledApp: CaseIterable {
     case tinder
     case with
     case iCloud
-    case googleCloud
+    case googleDrive
 
     var serviceId: String { // server側が持ってるuid
         switch self {
@@ -70,7 +70,7 @@ enum InstalledApp: CaseIterable {
             return "18"
         case .iCloud:
             return "19"
-        case .googleCloud:
+        case .googleDrive:
             return "20"
         }
     }
@@ -84,39 +84,39 @@ enum InstalledApp: CaseIterable {
         case .spotify:
             return "spotify://home"
         case .youtubeMusic:
-            return "youtube://"
+            return "youtubemusic://"
         case .lineMusic:
-            return ""
+            return "linemusic://open?cc=JP"
         case .amazonMusicUnlimited:
-            return ""
+            return "amznmp3://"
         case .youtube:
-            return ""
+            return "youtube://"
         case .abema:
-            return ""
+            return "abematv://"
         case .netflix:
-            return ""
+            return "" // nflx://だとできなかった
         case .amazonPrimeVideo:
-            return ""
+            return "aiv-jp://"
         case .hulu:
-            return ""
+            return "" // happyonappだと無理
         case .openRec:
-            return ""
+            return "jp.co.cyber-z.openrec://"
         case .dAnime:
-            return ""
+            return "" // 無理そう
         case .fod:
-            return ""
+            return "fujitv-fodviewer://"
         case .tapple:
-            return ""
+            return "fb289618847852403://"
         case .crossMe:
-            return ""
+            return "crossme://"
         case .tinder:
-            return ""
+            return "tinder://"
         case .with:
-            return ""
+            return "with://"
         case .iCloud:
-            return ""
-        case .googleCloud:
-            return ""
+            return "" // デフォルトで撮ってしまうのでいらない
+        case .googleDrive:
+            return "googledrive://"
         }
     }
 }
@@ -127,7 +127,9 @@ final class InstalledAppDetector {
     func detect() -> [InstalledApp] {
         // インストールされていた場合のみ値を返す
         apps.compactMap { app -> InstalledApp? in
-            if let url = URL(string: app.deeplink), UIApplication.shared.canOpenURL(url) {
+            if app == .iCloud {
+                return app
+            } else if let url = URL(string: app.deeplink), UIApplication.shared.canOpenURL(url) {
                 return app
             } else {
                 return nil
