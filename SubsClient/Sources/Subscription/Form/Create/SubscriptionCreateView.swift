@@ -59,6 +59,7 @@ struct SubscriptionCreateFormView_Previews: PreviewProvider {
                     reducer: SubscriptionCreate.reducer.debug(),
                     environment: SubscriptionCreate.Environment(
                         subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
+                        firebaseRepository: AppEnvironment.shared.firebaseRepository,
                         mainQueue: AppEnvironment.shared.mainQueue
                     )
                 )

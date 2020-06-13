@@ -40,18 +40,20 @@ struct SubscriptionDetail {
             case .formAction:
                 return .none
             case .update:
-                return environment.subscriptionRepository
-                    .updateSubscription(
-                        userSubscriptionID: state.id,
-                        // TODO set userID
-                        userID: "",
-                        iconID: state.formState.iconID,
-                        serviceName: state.formState.serviceName,
-                        price: Int32(state.formState.price),
-                        cycle: Int32(state.formState.cycle),
-                        // TODO set freeTrial
-                        freeTrial: 0,
-                        startedAt: state.formState.startedAt)
+                return environment.firebaseRepository.instanceID
+                    .flatMap({ [state] in
+                        environment.subscriptionRepository
+                        .updateSubscription(
+                            userSubscriptionID: state.id,
+                            userID: $0,
+                            iconID: state.formState.iconID,
+                            serviceName: state.formState.serviceName,
+                            price: Int32(state.formState.price),
+                            cycle: Int32(state.formState.cycle),
+                            // TODO set freeTrial
+                            freeTrial: 0,
+                            startedAt: state.formState.startedAt)
+                    })
                     .receive(on: environment.mainQueue)
                     .catchToEffect()
                     .map(Action.updateResponse)
@@ -61,11 +63,13 @@ struct SubscriptionDetail {
             case let .updateResponse(.failure(e)):
                 assertionFailure(e.localizedDescription)
             case .unregister:
-                return environment.subscriptionRepository
-                    .unregisterSubscription(
-                        // TODO set userID
-                        userID: "",
-                        userSubscriptionID: state.id)
+                return environment.firebaseRepository.instanceID
+                    .flatMap({ [state] in
+                        environment.subscriptionRepository
+                            .unregisterSubscription(
+                                userID: $0,
+                                userSubscriptionID: state.id)
+                    })
                     .receive(on: environment.mainQueue)
                     .catchToEffect()
                     .map(Action.unregisterResponse)
@@ -81,6 +85,7 @@ struct SubscriptionDetail {
     )
 
     struct Environment {
+        let firebaseRepository: FirebaseRepository
         let subscriptionRepository: SubscriptionRepository
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }

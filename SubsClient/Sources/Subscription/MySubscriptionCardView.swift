@@ -63,6 +63,7 @@ public struct MySubscriptionCardView: View {
                             initialState: .init(subscription: self.subscription),
                             reducer: SubscriptionDetail.reducer,
                             environment: SubscriptionDetail.Environment(
+                                firebaseRepository: AppEnvironment.shared.firebaseRepository,
                                 subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
                                 mainQueue: AppEnvironment.shared.mainQueue
                             )

@@ -12,6 +12,7 @@ struct SubscriptionForm {
     private static let yen = "¥"
 
     struct State: Equatable {
+        var subscriptionID: String = ""
         var iconID: String = ""
         var imageURL: URL?
         var price: Int = 0
@@ -23,8 +24,7 @@ struct SubscriptionForm {
         init() {}
 
         init(subscription: Subscription_Subscription) {
-            // TODO: set actual iconID
-            iconID = "iconID"
+            subscriptionID = subscription.subscriptionID
             imageURL = subscription.url
             price = Int(subscription.price)
             serviceName = subscription.serviceName
