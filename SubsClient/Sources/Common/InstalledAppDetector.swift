@@ -121,12 +121,10 @@ enum InstalledApp: CaseIterable {
     }
 }
 
-final class InstalledAppDetector {
-    private let apps = InstalledApp.allCases
-
-    func detect() -> [InstalledApp] {
+struct InstalledAppDetector {
+    static func detect() -> [InstalledApp] {
         // インストールされていた場合のみ値を返す
-        apps.compactMap { app -> InstalledApp? in
+        InstalledApp.allCases.compactMap { app -> InstalledApp? in
             if app == .iCloud {
                 return app
             } else if let url = URL(string: app.deeplink), UIApplication.shared.canOpenURL(url) {

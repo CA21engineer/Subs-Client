@@ -19,7 +19,10 @@ struct OnBoarding {
                 .map(Action.subscriptionsResponse)
                 .cancellable(id: ID(), cancelInFlight: true)
         case let .subscriptionsResponse(.success(subscriptions)):
-            state.subscriptions = subscriptions
+            let installedAppIds = InstalledAppDetector.detect().map { $0.serviceId }
+            state.subscriptions = subscriptions.compactMap { subscription -> Subscription_Subscription? in
+                installedAppIds.contains(subscription.id) ? subscription : nil
+            }
             return .none
         case let .subscriptionsResponse(.failure(error)):
             state.subscriptions = []
