@@ -5,19 +5,18 @@
 //  Created by 長田卓馬 on 2020/06/14.
 //
 
-import Foundation
 import SwiftUI
 
 struct SnackBar: View {
-    @Binding var isShowing: Bool
+    @Binding private var isShowing: Bool
     private let presenting: AnyView
-    private let text: Text
+    private let text: String
     private let action: (() -> Void)?
 
     init<Presenting>(
         isShowing: Binding<Bool>,
         presenting: Presenting,
-        text: Text,
+        text: String,
         action: (() -> Void)? = nil
     ) where Presenting: View {
         _isShowing = isShowing
@@ -34,7 +33,7 @@ struct SnackBar: View {
                     Spacer()
                     if self.isShowing {
                         HStack {
-                            self.text
+                            Text(self.text)
                                 .foregroundColor(.primary)
                             Spacer()
                         }
@@ -64,7 +63,7 @@ struct SnackBar: View {
 }
 
 extension View {
-    func snackBar(isShowing: Binding<Bool>, text: Text, action: (() -> Void)? = nil) -> some View {
+    func snackBar(isShowing: Binding<Bool>, text: String, action: (() -> Void)? = nil) -> some View {
         SnackBar(isShowing: isShowing, presenting: self, text: text, action: action)
     }
 }
