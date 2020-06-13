@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SubscriptionCardView: View {
     private let subscription: Subscription_Subscription
-    @State private var showModal = false
+    @State private var showsCreateModal = false
 
     init(subscription: Subscription_Subscription) {
         self.subscription = subscription
@@ -47,14 +47,14 @@ struct SubscriptionCardView: View {
                 Spacer()
                 VStack {
                     Button(action: {
-                        self.showModal = true
+                        self.showsCreateModal = true
                     }, label: {
                         Image(systemName: "plus")
                             .foregroundColor(.primary)
                             .font(.system(size: 22, weight: .semibold))
                     })
                         .sheet(
-                            isPresented: self.$showModal,
+                            isPresented: self.$showsCreateModal,
                             content: {
                                 SubscriptionCreateFormView(
                                     store: .init(

@@ -9,8 +9,8 @@ import SwiftUI
 
 public struct MySubscriptionCardView: View {
     private let subscription: Subscription_Subscription
-    @State private var showsModal = false
     private let monthCount: Int
+    @State private var showsDetailModal = false
 
     init(subscription: Subscription_Subscription, monthCount: Int) {
         self.subscription = subscription
@@ -56,10 +56,10 @@ public struct MySubscriptionCardView: View {
             }
             .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
             .onTapGesture {
-                self.showsModal = true
+                self.showsDetailModal = true
             }
             .sheet(
-                isPresented: $showsModal,
+                isPresented: $showsDetailModal,
                 content: {
                     SubscriptionDetailView(
                         store: .init(
