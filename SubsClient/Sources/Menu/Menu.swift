@@ -21,7 +21,7 @@ struct Menu {
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
                 .map(Action.recommendSubscriptionsResponse)
-                .cancellable(id: ID(), cancelInFlight: true)
+                .cancellable(id: RecommendID(), cancelInFlight: true)
         case let .recommendSubscriptionsResponse(.success(subscriptions)):
             state.recommendSubscriptions = subscriptions
             return .none
@@ -34,7 +34,7 @@ struct Menu {
                 .receive(on: environment.mainQueue)
                 .catchToEffect()
                 .map(Action.popularSubscriptionsResponse)
-                .cancellable(id: ID(), cancelInFlight: true)
+                .cancellable(id: PopularID(), cancelInFlight: true)
         case let .popularSubscriptionsResponse(.success(subscriptions)):
             state.popularSubscriptions = subscriptions
             return .none
@@ -44,11 +44,12 @@ struct Menu {
         }
     }.debug()
 
-    struct ID: Hashable {}
+    struct RecommendID: Hashable {}
+    struct PopularID: Hashable {}
 
     struct State: Equatable {
         static func == (lhs: State, rhs: State) -> Bool {
-            lhs.recommendSubscriptions == rhs.recommendSubscriptions
+            lhs.recommendSubscriptions == rhs.recommendSubscriptions && lhs.popularSubscriptions == rhs.popularSubscriptions
         }
 
         var recommendSubscriptions: [Subscription_Subscription] = []
