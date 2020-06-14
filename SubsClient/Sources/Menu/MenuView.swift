@@ -35,42 +35,40 @@ struct MenuView: View {
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            NavigationView {
-                VStack(alignment: .leading) {
-                    SlidingTabView(selection: self.$selectedTabIndex, tabs: self.tabs.map { $0.title })
-                    if self.selectedTabIndex == 0 {
-                        RecommendSubscriptionListView(subscriptions: viewStore.recommendSubscriptions)
-                    } else if self.selectedTabIndex == 1 {
-                        PopularSubscriptionListView(subscriptions: viewStore.popularSubscriptions)
-                    }
+            VStack(alignment: .leading) {
+                SlidingTabView(selection: self.$selectedTabIndex, tabs: self.tabs.map { $0.title })
+                if self.selectedTabIndex == 0 {
+                    RecommendSubscriptionListView(subscriptions: viewStore.recommendSubscriptions)
+                } else if self.selectedTabIndex == 1 {
+                    PopularSubscriptionListView(subscriptions: viewStore.popularSubscriptions)
                 }
-                .navigationBarTitle("選択する", displayMode: .inline)
-                .navigationBarItems(
-                    trailing: Button(action: {
-                        self.showModal = true
-                    }, label: {
-                        Image(systemName: "paperplane.fill")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
+            }
+            .navigationBarTitle("選択する", displayMode: .inline)
+            .navigationBarItems(
+                trailing: Button(action: {
+                    self.showModal = true
+                }, label: {
+                    Image(systemName: "paperplane.fill")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 20))
                     })
-                        .sheet(
-                            isPresented: self.$showModal,
-                            content: {
-                                SubscriptionCreateView(
-                                    store: .init(
-                                        initialState: .init(),
-                                        reducer: SubscriptionCreate.reducer,
-                                        environment: SubscriptionCreate.Environment(
-                                            subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
-                                            firebaseRepository: AppEnvironment.shared.firebaseRepository,
-                                            mainQueue: AppEnvironment.shared.mainQueue
-                                        )
+                    .sheet(
+                        isPresented: self.$showModal,
+                        content: {
+                            SubscriptionCreateView(
+                                store: .init(
+                                    initialState: .init(),
+                                    reducer: SubscriptionCreate.reducer,
+                                    environment: SubscriptionCreate.Environment(
+                                        subscriptionRepository: AppEnvironment.shared.subscriptionRepository,
+                                        firebaseRepository: AppEnvironment.shared.firebaseRepository,
+                                        mainQueue: AppEnvironment.shared.mainQueue
                                     )
                                 )
-                            }
-                        )
-                )
-            }
+                            )
+                        }
+                    )
+            )
             .onAppear {
                 viewStore.send(.fetchRecommendSubscriptions)
                 viewStore.send(.fetchPopularSubscriptions)
