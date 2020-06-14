@@ -65,6 +65,9 @@ struct HomeView: View {
                     OnBoardingView(store: self.onBoardingStore)
                 }
             )
+            .onReceive(Home.reloadSubject.eraseToAnyPublisher(), perform: { publisher in
+                viewStore.send(.fetchMySubscriptions)
+            })
             .onAppear {
                 viewStore.send(.fetchMySubscriptions)
             }

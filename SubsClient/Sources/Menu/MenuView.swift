@@ -13,6 +13,7 @@ struct MenuView: View {
     @State private var selectedTabIndex = 0
     @State private var showModal: Bool = false
     private let tabs = MenuTab.allCases
+    @Environment(\.presentationMode) var presentationMode
 
     private let store = Store<Menu.State, Menu.Action>(
         initialState: Menu.State(),
@@ -72,6 +73,9 @@ struct MenuView: View {
             .onAppear {
                 viewStore.send(.fetchRecommendSubscriptions)
                 viewStore.send(.fetchPopularSubscriptions)
+            }
+            .onReceive(Home.reloadSubject.eraseToAnyPublisher()) { _ in
+                self.presentationMode.wrappedValue.dismiss()
             }
         }
     }
