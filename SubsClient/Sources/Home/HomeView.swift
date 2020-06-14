@@ -5,7 +5,6 @@ import SwiftUI
 struct HomeView: View {
     private let store: Store<Home.State, Home.Action>
     @State private var selectedTabIndex = 0
-    @State private var showMenu = false
     @State private var showOnBoarding = false
     private let tabs = HomeTab.allCases
 
@@ -37,9 +36,7 @@ struct HomeView: View {
                             Spacer()
                             HStack(alignment: .center) {
                                 Spacer()
-                                NoContentView {
-                                    self.showMenu.toggle()
-                                }
+                                NoContentView()
                                 Spacer()
                             }
                             .padding(.bottom, 48)
@@ -53,21 +50,11 @@ struct HomeView: View {
                     }
                 }
                 .navigationBarTitle("Subs", displayMode: .inline)
-                .navigationBarItems(
-                    trailing: Button(action: {
-                        self.showMenu.toggle()
-                    }, label: {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 25))
-                    })
-                        .sheet(
-                            isPresented: self.$showMenu,
-                            content: {
-                                MenuView()
-                            }
-                        )
-                )
+                .navigationBarItems(trailing: NavigationLink(destination: MenuView(), label: {
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 25))
+                }))
                 .onAppear {
                     self.showOnboardingViewIfNeeded()
                 }

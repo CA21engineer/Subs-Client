@@ -15,20 +15,12 @@ struct MenuView: View {
     private let tabs = MenuTab.allCases
     @Environment(\.presentationMode) var presentationMode
 
-    private let recommendStore = Store(
-        initialState: RecommendSubscriptionList.State(),
-        reducer: RecommendSubscriptionList.reducer,
-        environment: RecommendSubscriptionList.Environment(
+    private let store = Store<Menu.State, Menu.Action>(
+        initialState: Menu.State(),
+        reducer: Menu.reducer,
+        environment: Menu.Environment(
             firebaseRepository: AppEnvironment.shared.firebaseRepository,
             recommendSubscriptionsRepository: AppEnvironment.shared.recommendSubscriptionsRepository,
-            mainQueue: AppEnvironment.shared.mainQueue
-        )
-    )
-
-    private let popularStore = Store(
-        initialState: PopularSubscriptionList.State(),
-        reducer: PopularSubscriptionList.reducer,
-        environment: PopularSubscriptionList.Environment(
             popularSubscriptionsRepository: AppEnvironment.shared.popularSubscriptionsRepository,
             mainQueue: AppEnvironment.shared.mainQueue
         )
@@ -43,13 +35,13 @@ struct MenuView: View {
     }
 
     var body: some View {
-        NavigationView {
+        WithViewStore(self.store) { viewStore in
             VStack(alignment: .leading) {
-                SlidingTabView(selection: $selectedTabIndex, tabs: tabs.map { $0.title })
-                if selectedTabIndex == 0 {
-                    RecommendSubscriptionListView(store: recommendStore)
-                } else if selectedTabIndex == 1 {
-                    PopularSubscriptionListView(store: popularStore)
+                SlidingTabView(selection: self.$selectedTabIndex, tabs: self.tabs.map { $0.title })
+                if self.selectedTabIndex == 0 {
+                    RecommendSubscriptionListView(subscriptions: viewStore.recommendSubscriptions)
+                } else if self.selectedTabIndex == 1 {
+                    PopularSubscriptionListView(subscriptions: viewStore.popularSubscriptions)
                 }
             }
             .navigationBarTitle("選択する", displayMode: .inline)
@@ -60,7 +52,7 @@ struct MenuView: View {
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(.primary)
                         .font(.system(size: 20))
-                })
+                    })
                     .sheet(
                         isPresented: self.$showModal,
                         content: {
@@ -78,6 +70,10 @@ struct MenuView: View {
                         }
                     )
             )
+            .onAppear {
+                viewStore.send(.fetchRecommendSubscriptions)
+                viewStore.send(.fetchPopularSubscriptions)
+            }
             .onReceive(Home.reloadSubject.eraseToAnyPublisher()) { _ in
                 self.presentationMode.wrappedValue.dismiss()
             }

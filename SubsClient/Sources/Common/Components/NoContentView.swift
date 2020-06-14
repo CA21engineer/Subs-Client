@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct NoContentView: View {
-    let tapButton: () -> Void
-
     var body: some View {
         VStack(alignment: .center, spacing: 12) {
             Image(uiImage: Asset.Assets.surfingIsometric.image)
@@ -22,7 +20,7 @@ struct NoContentView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 16)
 
-            Button(action: tapButton) {
+            NavigationLink(destination: MenuView()) {
                 Text("追加する")
                     .font(.system(size: 14))
                     .fontWeight(.bold)
@@ -38,6 +36,6 @@ struct NoContentView: View {
 
 struct NoContentView_Previews: PreviewProvider {
     static var previews: some View {
-        NoContentView(tapButton: {})
+        NoContentView()
     }
 }
