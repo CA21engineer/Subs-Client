@@ -78,14 +78,16 @@ struct SubscriptionCreate {
                         .cancellable(id: ID(), cancelInFlight: true)
                 }
             case let .createFinished(.success(response)):
-                // do something
-                break
+                environment.mainQueue.schedule {
+                    Home.reloadSubject.send(())
+                }
             case let .createFinished(.failure(e)):
                 // do something
                 break
             case let .registerFinished(.success(response)):
-                // do something
-                break
+                environment.mainQueue.schedule {
+                    Home.reloadSubject.send(())
+                }
             case let .registerFinished(.failure(e)):
                 // do something
                 break

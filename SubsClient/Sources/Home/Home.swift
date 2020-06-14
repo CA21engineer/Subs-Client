@@ -5,6 +5,7 @@
 //  Created by 長田卓馬 on 2020/06/09.
 //
 
+import Combine
 import ComposableArchitecture
 import Core
 import Foundation
@@ -51,4 +52,6 @@ struct Home {
         let mySubscriptionRepository: AnyMySubscriptionServiceRequestable<[Subscription_UserSubscription]>
         let mainQueue: AnySchedulerOf<DispatchQueue>
     }
+
+    static let reloadSubject = PassthroughSubject<Void, Never>()
 }
