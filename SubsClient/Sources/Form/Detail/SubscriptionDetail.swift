@@ -61,7 +61,7 @@ struct SubscriptionDetail {
                     .map(Action.updateResponse)
                     .cancellable(id: UpdateID(), cancelInFlight: true)
             case let .updateResponse(.success(response)):
-                break
+                Home.reloadSubject.send(())
             case let .updateResponse(.failure(e)):
                 assertionFailure(e.localizedDescription)
             case .unregister:
@@ -78,7 +78,7 @@ struct SubscriptionDetail {
                     .map(Action.unregisterResponse)
                     .cancellable(id: DeleteID(), cancelInFlight: true)
             case let .unregisterResponse(.success(response)):
-                break
+                Home.reloadSubject.send(())
             case let .unregisterResponse(.failure(e)):
                 assertionFailure(e.localizedDescription)
             }
