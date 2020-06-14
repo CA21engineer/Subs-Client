@@ -13,6 +13,7 @@ struct MenuView: View {
     @State private var selectedTabIndex = 0
     @State private var showModal: Bool = false
     private let tabs = MenuTab.allCases
+    @Environment(\.presentationMode) var presentationMode
 
     private let recommendStore = Store(
         initialState: RecommendSubscriptionList.State(),
@@ -77,6 +78,9 @@ struct MenuView: View {
                         }
                     )
             )
+            .onReceive(Home.reloadSubject.eraseToAnyPublisher()) { _ in
+                self.presentationMode.wrappedValue.dismiss()
+            }
         }
     }
 }

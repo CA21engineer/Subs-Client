@@ -11,6 +11,7 @@ import SwiftUI
 
 struct SubscriptionDetailView: View {
     let store: Store<SubscriptionDetail.State, SubscriptionDetail.Action>
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -42,6 +43,9 @@ struct SubscriptionDetailView: View {
                     }
                     .disabled(!viewStore.formState.canSend)
                 )
+            }
+            .onReceive(Home.reloadSubject.eraseToAnyPublisher()) { _ in
+                self.presentationMode.wrappedValue.dismiss()
             }
         }
     }
