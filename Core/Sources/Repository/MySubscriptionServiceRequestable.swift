@@ -22,7 +22,7 @@ public struct AnyMySubscriptionServiceRequestable<ResponseType>: MySubscriptionS
     public let client: Subscription_SubscriptionServiceClient = {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         let configuration = ClientConnection.Configuration(
-            target: .hostAndPort("35.221.100.76", 18080),
+            target: .hostAndPort("35.200.69.138", 8080),
             eventLoopGroup: group
         )
         let connection = ClientConnection(configuration: configuration)
