@@ -35,4 +35,4 @@
 
 |ホーム画面(コンテンツあり)|ホーム画面(コンテンツなし)|メニュー画面(For You)|メニュー画面(人気)|サブスクリプション詳細|オンボーディング|
 |:--:|:--:|:--:|:--:|:--:|:--:|
-|<img src="" width="300">|<img src="" width="300">|<img src="" width="300">|<img src="" width="300">|<img src="" width="300">|<img src="" width="300">|
+|<img src="https://user-images.githubusercontent.com/27538852/84586689-9942d000-ae54-11ea-87a6-7fe11c289725.png" width="300">|<img src="https://user-images.githubusercontent.com/27538852/84586685-93e58580-ae54-11ea-9cff-81bfb3130359.png" width="300">|<img src="https://user-images.githubusercontent.com/27538852/84586686-97790c80-ae54-11ea-868f-1a36ffdc506b.png" width="300">|<img src="https://user-images.githubusercontent.com/27538852/84586719-e2931f80-ae54-11ea-95de-3ef41808aa58.png" width="300">|<img src="https://user-images.githubusercontent.com/27538852/84586820-71a03780-ae55-11ea-9d82-aff99cb54aa4.png" width="300">|<img src="https://user-images.githubusercontent.com/27538852/84586690-99db6680-ae54-11ea-9a40-f886e780432b.png" width="300">|
